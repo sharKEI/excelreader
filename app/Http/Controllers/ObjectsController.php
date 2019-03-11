@@ -13,7 +13,8 @@ class ObjectsController extends Controller
      */
     public function index()
     {
-        //
+        //form for creating object
+        return view('objectform');
     }
 
     /**
