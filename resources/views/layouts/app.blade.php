@@ -94,11 +94,11 @@ Contact: fadhil.kamil@tnb.com.my
         </div>
         <!-- end:: Body -->
 
+        @component('components.footer')
+        @endcomponent
+
     </div>
     <!-- end:: Page -->
-
-    @component('components.footer')
-    @endcomponent
 
     <!--begin:: Global Mandatory Vendors -->
     <script src="assets/vendors/jquery/dist/jquery.js" type="text/javascript"></script>
