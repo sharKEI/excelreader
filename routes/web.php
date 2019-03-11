@@ -11,6 +11,12 @@
 |
 */
 
+//MAIN ROUTES
 Route::get('/', 'HomeController@index')->name('home');
+
+
+//OBJECTS ROUTES
+Route::get('/object', 'ObjectsController@index');
+Route::post('/object/add', 'ObjectsController@create');
 
 //Route::get('/home', 'HomeController@index')->name('home');
