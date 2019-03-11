@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Objects;
 
 class ObjectsController extends Controller
 {
@@ -14,7 +15,7 @@ class ObjectsController extends Controller
     public function index()
     {
         //form for creating object
-        return view('objectform');
+        return view('addobject');
     }
 
     /**
@@ -22,9 +23,22 @@ class ObjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //Add a new objects
+
+        //Form validation
+        $request->validate([
+            'name' => 'required|unique:objects|max:255',
+        ]);
+
+        $name = $request->input('name');
+        $object = new Objects();
+        $object->name = $name;
+        if($object->save())
+            return redirect('/object')->with('success', "Object '$name' added!");
+        else
+            return redirect('/object')->with('error', "An error has occured.");
     }
 
     /**
