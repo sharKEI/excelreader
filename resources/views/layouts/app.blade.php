@@ -10,7 +10,7 @@ Contact: fadhil.kamil@tnb.com.my
 <!-- begin::Head -->
 <head>
     <meta charset="utf-8" />
-    <title>INSIGHTS</title>
+    <title>INSIGHTS - {{ $title }}</title>
     <meta name="description" content="Datatable HTML table">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -89,7 +89,22 @@ Contact: fadhil.kamil@tnb.com.my
             @component('components.sidebar')
             @endcomponent
 
-            @yield('content')
+            <!-- start:: Content -->
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+                @component('components.alert')
+                @endcomponent
+
+
+                @component('components.subheader')
+                    @slot('title', $subheader['title'])
+                    @slot('desc', $subheader['desc'])
+                @endcomponent
+
+                @yield('content')
+
+            </div>
+            <!-- end:: Content -->
 
         </div>
         <!-- end:: Body -->
@@ -177,7 +192,7 @@ Contact: fadhil.kamil@tnb.com.my
 
     <!--begin::Page Scripts -->
     <script src="assets/demo/custom/crud/metronic-datatable/base/html-table-insight.js" type="text/javascript"></script>
-
+    <script src="assets/app/js/app.js" type="text/javascript"></script>
     <!--end::Page Scripts -->
 </body>
 

@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['title'] = 'Home';
+        $data['subheader'] = ['title' => 'Dashboard', 'desc' => 'Data Health Check.'];
+        return view('home', $data);
     }
 }

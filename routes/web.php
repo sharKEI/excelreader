@@ -14,9 +14,8 @@
 //MAIN ROUTES
 Route::get('/', 'HomeController@index')->name('home');
 
+//OBJECTS ROUTE
+Route::resource('/object', 'ObjectsController');
 
-//OBJECTS ROUTES
-Route::get('/object', 'ObjectsController@index');
-Route::post('/object/add', 'ObjectsController@create');
-
-//Route::get('/home', 'HomeController@index')->name('home');
+//PLACES ROUTE
+Route::resource('/place', 'PlacesController');

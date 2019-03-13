@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Objects extends Model
+class Places extends Model
 {
     //Table Relation
     public function excels()

@@ -12,18 +12,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-<<<<<<< HEAD
-
-        "maatwebsite/excel": "~3.1.0",
-
-        "maatwebsite/excel": "^3.1",
-
-        "phpoffice/phpspreadsheet": "^1.6"
-=======
         "maatwebsite/excel": "~3.1.0",
         "phpoffice/phpspreadsheet": "^1.6",
         "laravelcollective/html": "~5.0"
->>>>>>> 900df3b1e86cec5210acebb4fe8c00be47f89437
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
