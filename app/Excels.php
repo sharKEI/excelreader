@@ -16,4 +16,9 @@ class Excels extends Model
     {
         return $this->belongsTo('App\Objects');
     }
+
+    public function quarter()
+    {
+        return $this->belongsTo('App\Quarters');
+    }
 }

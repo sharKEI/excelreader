@@ -14,14 +14,17 @@ class CreateExcelsTable extends Migration
     public function up()
     {
         Schema::create('excels', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title')->unique();
+            //$table->bigIncrements('id');
+            //$table->string('title')->unique();
             $table->string('filename');
             $table->smallInteger('attcomp');
             $table->unsignedBigInteger('object_id');
             $table->foreign('object_id')->references('id')->on('objects');
             $table->unsignedBigInteger('place_id');
             $table->foreign('place_id')->references('id')->on('places');
+            $table->unsignedBigInteger('quarter_id');
+            $table->foreign('quarter_id')->references('id')->on('quarters');
+            $table->primary(['object_id', 'place_id', 'quarter_id']);
             $table->timestamps();
         });
     }

@@ -55,14 +55,17 @@
             </div>
             <!--end: Search Form -->
 
+            <h3 class="m-portlet__head-text">
+                Manage Objects
+            </h3>
+
             <!--begin: Datatable -->
             <table class="m-datatable" id="html_table" width="100%">
                 <thead>
                     <tr>
                         <th title="No" data-field="No">No</th>
                         <th title="Object Name" data-field="Object">Object Name</th>
-                        <th title="Created At" data-field="Created_At">Created At</th>
-                        <th title="Updated At" data-field="Updated_At">Last Updated</th>
+                        <th>Records Available</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -76,21 +79,16 @@
                                 <td>
                                     {{ $object['name'] }}
                                 </td>
-                                <td>
-                                    {{ $object['created_at'] }}
-                                </td>
-                                <td>
-                                    {{ $object['updated_at'] }}
-                                </td>
+                                <td>{{ sizeof($object->excels) }}</td>
                                 <td>
                                     <div class="form-inline">
                                         {{ Form::open(['onsubmit' => 'editModal(this, "'.$object['name'].'")', 'method' => 'PUT', 'route' => ['object.update', $object->id]]) }}
                                             <input type="hidden" name="name" value="">
-                                            <button class="btn btn-warning btn-sm"><i class="flaticon-edit-1"></i></button>
+                                            <button title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
                                         {{ Form::close() }}
                                         &nbsp
                                         {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['object.destroy', $object->id]]) }}
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="flaticon-delete"></i></button>
+                                            <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
                                     </div>  
                                 </td>

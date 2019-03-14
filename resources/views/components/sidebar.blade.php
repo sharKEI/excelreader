@@ -19,24 +19,6 @@
             </li>
 
             <li class="m-menu__section ">
-                <h4 class="m-menu__section-text">Reports</h4>
-                <i class="m-menu__section-icon flaticon-more-v2"></i>
-            </li>
-
-            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Assessment Reports FY2018</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
-                <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
-                    <ul class="m-menu__subnav">
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_dPET_20181224_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">dPET</span></a></li>
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_DNMP_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">DNMP</span></a></li>
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_MRU_Assessment_20181224_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">MRU Boundary</span></a></li>
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_Land_Based_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Land Based Data</span></a></li>
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_Land_Parcel_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Land Parcel (NDCDB)</span></a></li>
-                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_Technical Losses_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Technical Losses</span></a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="m-menu__section ">
                 <h4 class="m-menu__section-text">Settings</h4>
                 <i class="m-menu__section-icon flaticon-more-v2"></i>
             </li>
@@ -56,12 +38,36 @@
                                 <span class="m-menu__link-text">Places</span>
                             </a>
                         </li>
-                        {{-- <li class="m-menu__item {{ Request::is(route('excel.index')) ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
-                            <a href="{{ route('excel.index') }}" class="m-menu__link ">
+                        <li class="m-menu__item {{ URL::current() == route('quarter.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+                            <a href="{{ route('quarter.index') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
+                                <span class="m-menu__link-text">Quarters</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item {{ URL::current() == route('excels.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+                            <a href="{{ route('excels.index') }}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
                                 <span class="m-menu__link-text">Excels</span>
                             </a>
-                        </li> --}}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__section ">
+                <h4 class="m-menu__section-text">Reports</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-layers"></i><span class="m-menu__link-text">Assessment Reports FY2018</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                <div class="m-menu__submenu "><span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_dPET_20181224_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">dPET</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_DNMP_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">DNMP</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_MRU_Assessment_20181224_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">MRU Boundary</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_Land_Based_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Land Based Data</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Final_Report_Land_Parcel_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Land Parcel (NDCDB)</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="data/report/fy2018/Requirement_Study_for_GIS_Data_Analytics_in_Technical Losses_20181227_Rev0.pptx" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">Technical Losses</span></a></li>
                     </ul>
                 </div>
             </li>

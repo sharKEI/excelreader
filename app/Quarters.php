@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Places extends Model
+class Quarters extends Model
 {
     //Table Relation
     public function excels()
     {
-        return $this->hasMany('App\Excels', 'foreign_key', 'place_id');
+        return $this->hasMany('App\Excels', 'foreign_key', 'quarter_id');
     }
 }

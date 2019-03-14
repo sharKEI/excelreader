@@ -15,7 +15,13 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 //OBJECTS ROUTE
-Route::resource('/object', 'ObjectsController');
+Route::resource('/object', 'ObjectsController')->except('create', 'show', 'edit');
 
 //PLACES ROUTE
-Route::resource('/place', 'PlacesController');
+Route::resource('/place', 'PlacesController')->except('create', 'show', 'edit');
+
+//QUARTERS ROUTE
+Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
+
+//EXCELS ROUTE
+Route::resource('/excels', 'ExcelsController');

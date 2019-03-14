@@ -2,14 +2,13 @@
 
 @section('content')
 <!-- start:: Content -->
-
 <div class="m-content">
 	<div class="m-portlet m-portlet--mobile">
 
         <div class="m-portlet__body">
 
             <h3 class="m-portlet__head-text">
-                Add New Place
+                Add New Quarter
             </h3>
 
             {{-- Form validation error --}}
@@ -30,12 +29,21 @@
                     <div class="col-xl-8 order-2 order-xl-1">
                         <div class="form-group m-form__group row align-items-center">
                             <div class="col-md-8">
-                                {{ Form::open(array('route' => ['place.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
+                                {{ Form::open(array('route' => ['quarter.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
         
                                     <div class="input-group">
-                                        <input type="text" name="name" class="form-control" placeholder="New Place Name...">
+                                        <select class="form-control m-input m-input--square" name="year">
+                                                @for ($i = 2010; $i < 2090; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                        </select>
+                                        <select class="form-control m-input m-input--square" name="quarter">
+                                            @for ($i = 1; $i < 5; $i++)
+                                                <option value="{{$i}}">Q{{$i}}</option>
+                                            @endfor
+                                        </select>
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit">Add Place</button>
+                                            <button class="btn btn-primary" type="submit">Add Quarter</button>
                                         </div>
                                     </div>
                         
@@ -43,7 +51,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="m-input-icon m-input-icon--left">
-                                    <input type="text" class="form-control m-input" placeholder="Search place(s)..." id="generalSearch">
+                                    <input type="text" class="form-control m-input" placeholder="Search Quarter(s)..." id="generalSearch">
                                     <span class="m-input-icon__icon m-input-icon__icon--left">
                                         <span><i class="la la-search"></i></span>
                                     </span>
@@ -56,7 +64,7 @@
             <!--end: Search Form -->
 
             <h3 class="m-portlet__head-text">
-                Manage Places
+                Manage Quarters
             </h3>
 
             <!--begin: Datatable -->
@@ -64,31 +72,24 @@
                 <thead>
                     <tr>
                         <th title="No" data-field="No">No</th>
-                        <th title="Place Name" data-field="Place">Place Name</th>
+                        <th title="Quarter Name" data-field="quarter">Quarter</th>
+                        <th title="Year" data-field="Year">Year</th>
                         <th>Records Available</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($places)
-                        @foreach ($places as $key => $place)
+                    @if ($quarters)
+                        @foreach ($quarters as $key => $quarter)
                             <tr>
-                                <td>
-                                    {{ $key+1 }}
-                                </td>
-                                <td>
-                                    {{ $place['name'] }}
-                                </td>
-                                <td>{{ sizeof($place->excels) }}</td>
+                                <td>{{ $key+1 }}</td>
+                                <td>Q{{ $quarter['quarter'] }}</td>
+                                <td>{{ $quarter['year'] }}</td>
+                                <td>{{ sizeof($quarter->excels) }}</td>
                                 <td>
                                     <div class="form-inline">
-                                        {{ Form::open(['onsubmit' => 'editModal(this, "'.$place['name'].'")', 'method' => 'PUT', 'route' => ['place.update', $place->id]]) }}
-                                            <input type="hidden" name="name" value="">
-                                            <button title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
-                                        {{ Form::close() }}
-                                        &nbsp
-                                        {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['place.destroy', $place->id]]) }}
-                                        <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
+                                        {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['quarter.destroy', $quarter->id]]) }}
+                                            <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
                                     </div>  
                                 </td>
