@@ -19,4 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/object', 'ObjectsController@index');
 Route::post('/object/add', 'ObjectsController@create');
 
+Route::get('/upload','FileController@index')->name('add-file');
+Route::post('import','FileController@import')->name('import');
+
 //Route::get('/home', 'HomeController@index')->name('home');

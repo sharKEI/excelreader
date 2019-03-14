@@ -120,7 +120,17 @@
 						<tr>
 							<td>01</td>
 							<td>PMU, PPU and SSU</td>
-							<td><span class="m-badge m-badge--success m-badge--wide"><a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">89% </a></span></td>
+							<td>
+								@if($num>80)
+									<span class="m-badge m-badge--success m-badge--wide">
+								@else if($num>50)
+									<span class="m-badge m-badge--warning m-badge--wide">
+								@else
+									<span class="m-badge m-badge--danger m-badge--wide">
+								@end if
+									<a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">89% </a>
+								</span>
+							</td>
 							<td><span class="m-badge m-badge--success m-badge--wide"><a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">100%</td>
 							<td><span class="m-badge m-badge--success m-badge--wide"><a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">100% </a></span></td>
 							<td>1</td>
