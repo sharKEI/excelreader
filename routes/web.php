@@ -25,7 +25,7 @@ Route::get('/upload','FileController@index')->name('add-file');
 Route::post('import','FileController@import')->name('import');
 
 //Route::get('/home', 'HomeController@index')->name('home');
-=======
+
 //QUARTERS ROUTE
 Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
 
