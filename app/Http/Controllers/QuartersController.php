@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Objects;
+use App\Quarters;
 
-class ObjectsController extends Controller
+class QuartersController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -15,12 +15,12 @@ class ObjectsController extends Controller
     public function index()
     {
         //form for creating object
-        $data['title'] = 'Manage objects';
-        $data['subheader'] = ['title' => 'Manage Objects', 'desc' => 'View, Add or Edit Object(s).'];
+        $data['title'] = 'Manage Quarters';
+        $data['subheader'] = ['title' => 'Manage Quarters', 'desc' => 'View, Add or Edit Quarter(s).'];
 
-        $data['objects'] = Objects::all();
+        $data['quarters'] = Quarters::all();
 
-        return view('object', $data);
+        return view('quarter', $data);
     }
 
     /**
@@ -42,21 +42,32 @@ class ObjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //Add a new objects
+        //Add a new quarter
 
         /* Form validation */
         $request->validate([
-            'name' => 'required|unique:objects|max:255',
+            'quarter' => 'required',
+            'year' => 'required',
         ]);
 
-        $name = $request->input('name');
-        $object = new Objects();
-        $object->name = $name;
-        if($object->save())
-            $flashmsg = ['success', "Object '$name' have successfully been added!"];
+        $quart = $request->input('quarter');
+        $year = $request->input('year');
+        
+        $check = Quarters::where('year', $year)->where('quarter', $quart)->get();
+            
+        if (sizeof($check) > 0) {
+            $flashmsg = ['error', "Quarter 'Q$quart $year' already created."];
+            return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
+
+        $quarter = new Quarters();
+        $quarter->quarter = $quart;
+        $quarter->year = $year;
+        if($quarter->save())
+            $flashmsg = ['success', "Quarter 'Q$quart $year' have successfully been added!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 
     /**
@@ -91,14 +102,6 @@ class ObjectsController extends Controller
     public function update(Request $request, $id)
     {
         //Update an object
-        $name = $request->input('name');
-        $object = Objects::find($id);
-        $object->name = $name;
-        if($object->save())
-            $flashmsg = ['success', "Object '$name' have successfully been changed!"];
-        else
-            $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 
     /**
@@ -111,10 +114,10 @@ class ObjectsController extends Controller
     {
         //Delete an object
         echo 'test';
-        if(Objects::destroy($id))
+        if(Quarters::destroy($id))
             $flashmsg = ['success', "Object have been deleted!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Objects;
+use App\Places;
 
-class ObjectsController extends Controller
+class PlacesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,11 @@ class ObjectsController extends Controller
      */
     public function index()
     {
-        //form for creating object
-        $data['title'] = 'Manage objects';
-        $data['subheader'] = ['title' => 'Manage Objects', 'desc' => 'View, Add or Edit Object(s).'];
-
-        $data['objects'] = Objects::all();
-
-        return view('object', $data);
+        //Main setting page for places
+        $data['title'] = 'Manage Places';
+        $data['subheader'] = ['title' => 'Manage Places', 'desc' => 'View, Add or Edit Place(s).'];
+        $data['places'] = Places::all();
+        return view('place',$data);
     }
 
     /**
@@ -28,10 +26,9 @@ class ObjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        // 
-
+        //
     }
 
     /**
@@ -42,21 +39,22 @@ class ObjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //Add a new objects
+        //Add new places
 
         /* Form validation */
         $request->validate([
-            'name' => 'required|unique:objects|max:255',
+            'name' => 'required|unique:places|max:255',
         ]);
-
+        
+        /* Insert data */
         $name = $request->input('name');
-        $object = new Objects();
-        $object->name = $name;
-        if($object->save())
-            $flashmsg = ['success', "Object '$name' have successfully been added!"];
+        $place = new Places();
+        $place->name = $name;
+        if($place->save())
+            $flashmsg = ['success', "Place '$name' have successfully been added!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 
     /**
@@ -90,15 +88,15 @@ class ObjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Update an object
+        //Update a place
         $name = $request->input('name');
-        $object = Objects::find($id);
-        $object->name = $name;
-        if($object->save())
-            $flashmsg = ['success', "Object '$name' have successfully been changed!"];
+        $place = Places::find($id);
+        $place->name = $name;
+        if($place->save())
+            $flashmsg = ['success', "Place '$name' have successfully been changed!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 
     /**
@@ -109,12 +107,11 @@ class ObjectsController extends Controller
      */
     public function destroy($id)
     {
-        //Delete an object
-        echo 'test';
-        if(Objects::destroy($id))
-            $flashmsg = ['success', "Object have been deleted!"];
+        //Delete a place
+        if(Places::destroy($id))
+            $flashmsg = ['success', "Place have been deleted!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 }

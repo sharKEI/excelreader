@@ -14,12 +14,20 @@
 //MAIN ROUTES
 Route::get('/', 'HomeController@index')->name('home');
 
+//OBJECTS ROUTE
+Route::resource('/object', 'ObjectsController')->except('create', 'show', 'edit');
 
-//OBJECTS ROUTES
-Route::get('/object', 'ObjectsController@index');
-Route::post('/object/add', 'ObjectsController@create');
+//PLACES ROUTE
+Route::resource('/place', 'PlacesController')->except('create', 'show', 'edit');
+
 
 Route::get('/upload','FileController@index')->name('add-file');
 Route::post('import','FileController@import')->name('import');
 
 //Route::get('/home', 'HomeController@index')->name('home');
+=======
+//QUARTERS ROUTE
+Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
+
+//EXCELS ROUTE
+Route::resource('/excels', 'ExcelsController');
