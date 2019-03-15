@@ -9,6 +9,6 @@ class Places extends Model
     //Table Relation
     public function excels()
     {
-        return $this->hasMany('App\Excels', 'foreign_key', 'place_id');
+        return $this->hasMany('App\Excels', 'place_id');
     }
 }

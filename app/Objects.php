@@ -9,6 +9,6 @@ class Objects extends Model
     //Table Relation
     public function excels()
     {
-        return $this->hasMany('App\Excels', 'foreign_key', 'object_id');
+        return $this->hasMany('App\Excels', 'object_id');
     }
 }

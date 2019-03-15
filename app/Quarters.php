@@ -9,6 +9,6 @@ class Quarters extends Model
     //Table Relation
     public function excels()
     {
-        return $this->hasMany('App\Excels', 'foreign_key', 'quarter_id');
+        return $this->hasMany('App\Excels', 'quarter_id');
     }
 }

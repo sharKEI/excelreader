@@ -44,8 +44,8 @@
                                 <span class="m-menu__link-text">Quarters</span>
                             </a>
                         </li>
-                        <li class="m-menu__item {{ URL::current() == route('excels.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
-                            <a href="{{ route('excels.index') }}" class="m-menu__link ">
+                        <li class="m-menu__item {{ URL::current() == route('excel.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+                            <a href="{{ route('excel.index') }}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
                                 <span class="m-menu__link-text">Excels</span>
                             </a>
