@@ -32,3 +32,8 @@ function editModal(form, name){
         }
     })
 }
+
+function excelModal(id, fname){
+    var link = 'ViewerJS#../uploads/'+id+fname;
+    document.getElementById('excelIFrame').src = link;
+}

@@ -30,4 +30,5 @@ Route::post('import','FileController@import')->name('import');
 Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
 
 //EXCELS ROUTE
-Route::resource('/excels', 'ExcelsController');
+Route::resource('/excel', 'ExcelsController');
+

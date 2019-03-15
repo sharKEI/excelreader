@@ -9,41 +9,12 @@
         <div class="m-portlet__body">
 
             <h3 class="m-portlet__head-text">
-                Manage Excel &nbsp
-                <button class="btn btn-primary" type="submit">Add New Excel</button>
+                Manage excels
+                &nbsp
+                <button onclick="window.location.href = '{{ route('excel.create') }}'" class="btn btn-primary">Add New Excel</button>
             </h3>
 
-
-            {{-- Form validation error --}}
-            @if ($errors->any())
-            <div class="m-alert m-alert--outline m-alert--outline-2x alert alert-danger alert-dismissible fade show" role="alert">
-                <p><b>Error!</b></p>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
-
-            <!--begin: Search Form -->
-            <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
-                <div class="row align-items-center">
-                    <div class="col-xl-8 order-2 order-xl-1">
-                        <div class="form-group m-form__group row align-items-center">
-                            <div class="col-md-12">
-                                <div class="m-input-icon m-input-icon--left">
-                                    <input type="text" class="form-control m-input" placeholder="Search excel(s)..." id="generalSearch">
-                                    <span class="m-input-icon__icon m-input-icon__icon--left">
-                                        <span><i class="la la-search"></i></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end: Search Form -->
+            <br>
 
             <!--begin: Datatable -->
             <table class="m-datatable" id="html_table" width="100%">
@@ -51,10 +22,9 @@
                     <tr>
                         <th title="No" data-field="No">No</th>
                         <th title="Object" data-field="Object">Object</th>
-                        <th title="Attribute Completeness" data-field="AttComp">Attribute Completeness</th>
-                        <th title="Place" data-field="Place">Area</th>
-                        <th title="Quarter" data-field="Quarter">Quarter</th>
-                        <th title="File Name" data-field="Excel">Filename</th>
+                        <th title="Attribute Completeness" data-field="AttComp">Att. Completeness</th>
+                        <th title="area" data-field="area">Area</th>
+                        <th title="quarter" data-field="quarter">Quarter</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,19 +33,33 @@
                         @foreach ($excels as $key => $excel)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $excel->object['name'] }}</td>
-                                <td>{{ $excel['attcomp'] }}</td>
-                                <td>{{ $excel->place['name'] }}</td>
-                                <td>{{ "Q$excel->quarter['quarter'] $excel->quarter['year']" }}</td>
-                                <td>{{ $excel['filename'] }}</td>
+                                <td>{{ $excel->object->name }}</td>
+                                <td>
+                                    @if ($excel->attcomp >= 80)
+                                    <span class="m-badge m-badge--success m-badge--wide text-white">
+                                    @elseif ($excel->attcomp >= 50)
+                                    <span class="m-badge m-badge--info m-badge--wide text-white">
+                                    @elseif ($excel->attcomp >= 30)
+                                    <span class="m-badge m-badge--warning m-badge--wide text-white">
+                                    @else
+                                    <span class="m-badge m-badge--danger m-badge--wide text-white">
+                                    @endif
+                                    {{ $excel->attcomp }}
+                                    </span>
+                                </td>
+                                <td>{{ $excel->place->name }}</td>
+                                <?php $quarter = $excel->quarter->quarter; $year = $excel->quarter->year ?>
+                                <td>{{ "Q$quarter $year" }}</td>
                                 <td>
                                     <div class="form-inline">
-                                        {{ Form::open(['onsubmit' => 'editModal(this, "'.$excel['name'].'")', 'method' => 'PUT', 'route' => ['excels.update', $excel->id]]) }}
+                                        <a onclick="excelModal({{$excel->id}}, '{{$excel->filename}}')" data-toggle="modal" data-target="#excelModal" title="View" class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a>
+                                        &nbsp
+                                        {{ Form::open(['onsubmit' => 'editModal(this, "'.$excel['name'].'")', 'method' => 'PUT', 'route' => ['excel.update', $excel->id]]) }}
                                             <input type="hidden" name="name" value="">
                                             <button title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
                                         {{ Form::close() }}
                                         &nbsp
-                                        {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excels.destroy', $excel->id]]) }}
+                                        {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excel.destroy', $excel->id]]) }}
                                             <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
                                     </div>  
@@ -91,6 +75,25 @@
         </div>
 
     </div>
+</div>
+
+<!-- Modal -->
+<div id="excelModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            {{-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div> --}}
+        <iframe id="excelIFrame" src = "" width='auto' height='100%' allowfullscreen webkitallowfullscreen></iframe>
+    </div>
+      
+
 </div>
 
 <!-- end:: Content -->
