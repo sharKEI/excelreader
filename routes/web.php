@@ -37,3 +37,5 @@ Route::middleware(['auth'])->group(function(){
 
 Route::get('/login', 'HomeController@login')->name('login');
 Route::post('/login', 'Auth\HomeController@login')->name('login');
+
+Route::post('users/register', 'Auth\RegisterController@register')->name('register');

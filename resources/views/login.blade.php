@@ -76,7 +76,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							<form class="m-login__form m-form" action="/login" method="post">
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+									<input class="form-control m-input" type="text" placeholder="Name" name="name" autocomplete="off">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -100,12 +100,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						<div class="m-login__signup">
 							<div class="m-login__head">
-								<h3 class="m-login__title">Sign Up</h3>
+								<h3 class="m-login__title">Register</h3>
 								<div class="m-login__desc">Enter your details to create your account:</div>
 							</div>
-							<form class="m-login__form m-form" action="">
+							<form class="m-login__form m-form" action="{{ route('register') }}">
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Fullname" name="fullname">
+									<input class="form-control m-input" type="text" placeholder="Name" name="name">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
@@ -116,7 +116,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="form-group m-form__group">
 									<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Confirm Password" name="rpassword">
 								</div>
-								<div class="row form-group m-form__group m-login__form-sub">
+								<!-- <div class="row form-group m-form__group m-login__form-sub">
 									<div class="col m--align-left">
 										<label class="m-checkbox m-checkbox--focus">
 										<input type="checkbox" name="agree"> I Agree the <a href="#" class="m-link m-link--focus">terms and conditions</a>.
@@ -124,7 +124,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</label>
 										<span class="m-form__help"></span>
 									</div>
-								</div>
+								</div> -->
 								<div class="m-login__form-action">
 									<button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign Up</button>
 									<button id="m_login_signup_cancel" class="btn btn-outline-focus  m-btn m-btn--pill m-btn--custom">Cancel</button>
@@ -141,10 +141,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
 								</div>
-								<div class="m-login__form-action">
+								<!-- <div class="m-login__form-action">
 									<button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Request</button>
 									<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">Cancel</button>
-								</div>
+								</div> -->
 							</form>
 						</div>
 					</div>
@@ -156,7 +156,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<span class="m-login__account-msg">
 						Don't have an account yet ?
 						</span>&nbsp;&nbsp;
-						<a href="javascript:;" id="m_login_signup" class="m-link m-link--focus m-login__account-link">Sign Up</a>
+						<a href="javascript:;" id="m_login_signup" class="m-link m-link--focus m-login__account-link">Register</a>
 					</div>
 
 				</div>
