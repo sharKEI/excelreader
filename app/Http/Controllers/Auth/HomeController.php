@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Excels;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $data['title'] = 'Home';
         $data['subheader'] = ['title' => 'Dashboard', 'desc' => 'Data Health Check.'];
+        $data['excels'] = Excels::all();
         return view('home', $data);
     }
 

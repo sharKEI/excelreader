@@ -20,6 +20,8 @@ class CreateRevisionsTable extends Migration
             $table->smallInteger('attcomp');
             $table->unsignedBigInteger('excel_id');
             $table->foreign('excel_id')->references('id')->on('excels');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

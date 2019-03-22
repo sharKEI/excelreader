@@ -24,10 +24,11 @@ class RevisionsController extends Controller
             $datas = Excel::selectSheets('Output')->load($path)->get(array('check'));
             $fail = 0;
             $pass = 0;
+            array_change_key_case($datas,CASE_UPPER);
             foreach ($datas as $data) {
-                if ($data['check'] == 'Fail')
+                if (strtolower($data['CHECK']) == 'fail')
                     $fail += 1;
-                if ($data['check'] == 'Pass')
+                if (strtolower($data['CHECK']) == 'pass')
                     $pass += 1;
             }
             $attcomp = $pass / ($fail + $pass) * 100;

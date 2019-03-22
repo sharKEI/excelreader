@@ -21,6 +21,8 @@ class CreateExcelsTable extends Migration
             $table->foreign('place_id')->references('id')->on('places');
             $table->unsignedBigInteger('quarter_id');
             $table->foreign('quarter_id')->references('id')->on('quarters');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unique(['object_id', 'place_id', 'quarter_id']);
             $table->timestamps();
         });

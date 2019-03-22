@@ -48,7 +48,21 @@
             <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
 
                 <!-- BEGIN: Horizontal Menu -->
-
+                <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
+                    <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+                        <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel" m-menu-submenu-toggle="click" m-menu-link-redirect="1" aria-haspopup="true"><a href="javascript:;" class="m-menu__link m-menu__toggle" title="Non functional dummy link"><i
+                                 class="m-menu__link-icon flaticon-users-1"></i><span class="m-menu__link-text">{{ Auth::user()['staff_id'] }}</span><i class="m-menu__hor-arrow la la-angle-down"></i><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+                            <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left"><span class="m-menu__arrow m-menu__arrow--adjust"></span>
+                                {{ Form::open(['route' => ['logout'], 'name' => 'logout']) }}
+                                <ul class="m-menu__subnav">
+                                    <li class="m-menu__item " aria-haspopup="true"><a href="javascript:document.logout.submit();" class="m-menu__link "><i class="m-menu__link-icon flaticon-reply"></i><span class="m-menu__link-text">Logout</span></a></li>
+                                </ul>
+                                {{ Form::close() }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <!-- END: Horizontal Menu -->
 
                 <!-- BEGIN: Topbar -->

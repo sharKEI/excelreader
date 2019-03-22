@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- start:: Content -->
-
+<?php print_r() ?>
 <div class="m-content">
 	<div class="m-portlet m-portlet--mobile">
 

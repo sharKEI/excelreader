@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -29,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -47,25 +46,11 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    // public function register(Request $request)
-    // {
-    //   //if the email already exist attempt to login
-    //   $user=user::where('email','=',$request['email'])->first();
-    //   if ($user !== null){
-    //     //attempt login
-    //     $this->login($request);
-    //   }else{
-    //     //otherwise register
-    //     $this->parent_register($request);
-    //   }
-    //   return redirect()->intended($this->redirectPath());
-    // }
-
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'staff_id' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -80,8 +65,10 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'staff_id' => $data['staff_id'],
             'password' => Hash::make($data['password']),
+            'admin' => 0,
+            'active' => 0,
         ]);
     }
 }
