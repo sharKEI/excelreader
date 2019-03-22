@@ -35,7 +35,10 @@ Route::middleware(['auth'])->group(function(){
 
 });
 
-Route::get('/login', 'HomeController@login')->name('login');
-Route::post('/login', 'Auth\HomeController@login')->name('login');
+Route::get('/login', 'HomeController@login')->name('loginpage');
+// Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 Route::post('users/register', 'Auth\RegisterController@register')->name('register');
+
+Route::get('users/logout', 'Auth\LoginController@logout');
+Route::post('users/login', 'Auth\LoginController@login')->name('login');

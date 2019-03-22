@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\DB;
+
 
 class RegisterController extends Controller
 {
@@ -47,25 +50,33 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    // public function register(Request $request)
-    // {
-    //   //if the email already exist attempt to login
-    //   $user=user::where('email','=',$request['email'])->first();
-    //   if ($user !== null){
-    //     //attempt login
-    //     $this->login($request);
-    //   }else{
-    //     //otherwise register
-    //     $this->parent_register($request);
-    //   }
-    //   return redirect()->intended($this->redirectPath());
-    // }
+    public function register(Request $request)
+    {
+      //Add a new users
+
+      /* Form validation */
+      $request->validate([
+          'staff_id' => 'required',
+          'password' => 'required',
+      ]);
+
+      $staff_id = $request->input('staff_id');
+      $password = $request->input('password');
+      $user = new User();
+      $user->staff_id=$staff_id;
+      $user->password=Hash::make($password);
+      $user->admin=0;
+      if($user->save())
+          $flashmsg = ['success', "have successfully been added!"];
+      else
+          $flashmsg = ['error', "An error has occured."];
+      return redirect(route('loginpage'))->with($flashmsg[0], $flashmsg[1]);
+    }
 
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'staff_id' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -76,12 +87,22 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'staff_id' =>$request->input('staff_id'),
+            'password' =>$request->input('password'),
+            'admin' => 0,
         ]);
+        return view('login');
+    }
+
+    public function store(Request $request)
+    {
+      //print_r($request->input());
+      $register=new \App\Auth\User;
+      $passport->name=$request->get('name');
+      $passport->email=$request->get('email');
+      $passport->password=$request->get('password');
     }
 }

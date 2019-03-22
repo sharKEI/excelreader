@@ -74,9 +74,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
 															</div>
 
-							<form class="m-login__form m-form" action="/login" method="post">
+							<!-- <form class="m-login__form m-form" action="{{ route('login') }}" method="post"> -->
+                {{Form::open(['route' => 'login', 'class' => 'm-login__form m-form']) }}
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Name" name="name" autocomplete="off">
+									<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id" autocomplete="off">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -93,9 +94,10 @@ License: You must have a valid license purchased only from themeforest(the above
 									</div>
 								</div>
 								<div class="m-login__form-action">
-									<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
+									<button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
 								</div>
-							</form>
+                {{Form::close()}}
+							<!-- </form> -->
 						</div>
 
 						<div class="m-login__signup">
@@ -103,12 +105,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								<h3 class="m-login__title">Register</h3>
 								<div class="m-login__desc">Enter your details to create your account:</div>
 							</div>
-							<form class="m-login__form m-form" action="{{ route('register') }}">
+							<!-- <form class="m-login__form m-form" action="{{ route('register') }}"> -->
+                {{Form::open(['route' => 'register', 'class' => 'm-login__form m-form']) }}
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Name" name="name">
-								</div>
-								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+									<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="password" placeholder="Password" name="password">
@@ -125,11 +125,13 @@ License: You must have a valid license purchased only from themeforest(the above
 										<span class="m-form__help"></span>
 									</div>
 								</div> -->
+                <!-- <input type="hidden" name="_token" value="{{csrf_token()}}"> -->
 								<div class="m-login__form-action">
-									<button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign Up</button>
+									<input type="submit"class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
 									<button id="m_login_signup_cancel" class="btn btn-outline-focus  m-btn m-btn--pill m-btn--custom">Cancel</button>
 								</div>
-							</form>
+                {{Form::close()}}
+							<!-- </form> -->
 						</div>
 
 						<div class="m-login__forget-password">
