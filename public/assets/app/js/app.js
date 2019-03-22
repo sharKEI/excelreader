@@ -37,3 +37,23 @@ function excelModal(id, fname){
     var link = 'ViewerJS#../uploads/'+id+fname;
     document.getElementById('excelIFrame').src = link;
 }
+
+function editExcel(obj, plc, qrt, xlid){
+    document.getElementById('obj'+obj).selected = true;
+    document.getElementById('plc'+plc).selected = true;
+    document.getElementById('qrt'+qrt).selected = true;
+    document.getElementById('xlid').value = xlid;
+}
+
+// function apiExcel(id){
+//     $("#loadExcel").empty();
+//     $("#loadExcel").load("/revision/show/"+id)
+//     .then(function(){
+//         var clusterize = new Clusterize({
+//             scrollId: 'scrollArea',
+//             contentId: 'contentArea'
+//         });
+
+//     });
+
+// }

@@ -108,10 +108,14 @@ class PlacesController extends Controller
     public function destroy($id)
     {
         //Delete a place
-        if(Places::destroy($id))
+        try{
+            Places::destroy($id);
             $flashmsg = ['success', "Place have been deleted!"];
-        else
-            $flashmsg = ['error', "An error has occured."];
-        return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
+            return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
+        catch (\Exception $e){
+            $flashmsg = ['error', "Place still have records! Cannot delete. If problem persist, please contact the admin."];
+            return redirect(route('place.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
     }
 }

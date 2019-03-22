@@ -32,3 +32,7 @@ Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edi
 //EXCELS ROUTE
 Route::resource('/excel', 'ExcelsController');
 
+Route::post('/revision/store', 'RevisionsController@store')->name('revision.store');
+
+Route::get('/revision/show/{id}', 'RevisionsController@show')->name('revision.show');
+

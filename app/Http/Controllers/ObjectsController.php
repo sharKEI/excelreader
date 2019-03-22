@@ -111,11 +111,14 @@ class ObjectsController extends Controller
     public function destroy($id)
     {
         //Delete an object
-        echo 'test';
-        if(Objects::destroy($id))
+        try{
+            Objects::destroy($id);
             $flashmsg = ['success', "Object have been deleted!"];
-        else
-            $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+            return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
+        catch (\Exception $e){
+            $flashmsg = ['error', "Object still have records! Cannot delete. If problem persist, please contact the admin."];
+            return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
     }
 }

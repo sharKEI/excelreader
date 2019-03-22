@@ -21,4 +21,8 @@ class Excels extends Model
     {
         return $this->belongsTo('App\Quarters');
     }
+
+    public function revisions(){
+        return $this->hasMany('App\Revisions', 'excel_id');
+    }
 }

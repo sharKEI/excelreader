@@ -33,7 +33,7 @@
                                 {{ Form::open(array('route' => ['place.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
         
                                     <div class="input-group">
-                                        <input type="text" name="name" class="form-control" placeholder="New Place Name...">
+                                        <input type="text" name="name" class="form-control" placeholder="New Place Name..." required>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Add Place</button>
                                         </div>

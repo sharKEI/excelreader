@@ -11,8 +11,20 @@
             <h3 class="m-portlet__head-text">
                 Manage excels
                 &nbsp
-                <button onclick="window.location.href = '{{ route('excel.create') }}'" class="btn btn-primary">Add New Excel</button>
+                <button data-toggle="modal" data-target="#newExcelModal" class="btn btn-primary">Add New Excel</button>
             </h3>
+
+            {{-- Form validation error --}}
+            @if ($errors->any())
+            <div class="m-alert m-alert--outline m-alert--outline-2x alert alert-danger alert-dismissible fade show" role="alert">
+                <p><b>Error!</b></p>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
             <br>
 
@@ -35,29 +47,30 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $excel->object->name }}</td>
                                 <td>
-                                    @if ($excel->attcomp >= 80)
-                                    <span class="m-badge m-badge--success m-badge--wide text-white">
-                                    @elseif ($excel->attcomp >= 50)
-                                    <span class="m-badge m-badge--info m-badge--wide text-white">
-                                    @elseif ($excel->attcomp >= 30)
-                                    <span class="m-badge m-badge--warning m-badge--wide text-white">
+                                    @if(!empty($excel->revisions->last()))
+                                        @if ($excel->revisions->last()->attcomp >= 80)
+                                        <span class="m-badge m-badge--success m-badge--wide text-white">
+                                        @elseif ($excel->revisions->last()->attcomp >= 50)
+                                        <span class="m-badge m-badge--info m-badge--wide text-white">
+                                        @elseif ($excel->revisions->last()->attcomp >= 30)
+                                        <span class="m-badge m-badge--warning m-badge--wide text-white">
+                                        @else
+                                        <span class="m-badge m-badge--danger m-badge--wide text-white">
+                                        @endif
+                                        {{ $excel->revisions->last()->attcomp }}
+                                        </span>
                                     @else
-                                    <span class="m-badge m-badge--danger m-badge--wide text-white">
+                                        <span class="m-badge m-badge--metal m-badge--wide text-white">None
                                     @endif
-                                    {{ $excel->attcomp }}
-                                    </span>
                                 </td>
                                 <td>{{ $excel->place->name }}</td>
                                 <?php $quarter = $excel->quarter->quarter; $year = $excel->quarter->year ?>
-                                <td>{{ "Q$quarter $year" }}</td>
+                                <td><div style="display:none;width:0px;height:0px;">{{ $year.$quarter }}</div>{{ "Q$quarter $year" }}</td>
                                 <td>
                                     <div class="form-inline">
-                                        <a onclick="excelModal({{$excel->id}}, '{{$excel->filename}}')" data-toggle="modal" data-target="#excelModal" title="View" class="m-portlet__nav-link btn m-btn m-btn--hover-info m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a>
+                                        <a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
                                         &nbsp
-                                        {{ Form::open(['onsubmit' => 'editModal(this, "'.$excel['name'].'")', 'method' => 'PUT', 'route' => ['excel.update', $excel->id]]) }}
-                                            <input type="hidden" name="name" value="">
-                                            <button title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
-                                        {{ Form::close() }}
+                                        <button onclick="editExcel({{ $excel->object_id.','.$excel->place_id.','.$excel->quarter_id.','.$excel->id }})" data-toggle="modal" data-target="#editExcelModal" title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
                                         &nbsp
                                         {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excel.destroy', $excel->id]]) }}
                                             <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
@@ -76,24 +89,114 @@
 
     </div>
 </div>
-
+      
 <!-- Modal -->
-<div id="excelModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            {{-- <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
+<div class="modal fade" id="newExcelModal" tabindex="-1" role="dialog" aria-labelledby="newExcelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            {{ Form::open(array('route' => ['excel.store'], 'class' => 'm-form')) }}
             <div class="modal-body">
-              <p>Some text in the modal.</p>
+
+                    <div class="form-group m-form__group">
+                        <label for="object">Object</label>
+                        <select name="object" class="form-control m-input m-input--square" required>
+                                <option disabled selected>Choose an object...</option>
+                            @foreach ($objects as $object)
+                                <option value="{{ $object['id'] }}">{{ $object['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group m-form__group">
+                        <label for="place">Area</label>
+                        <select name="place" class="form-control m-input m-input--square" required>
+                                <option disabled selected>Choose an area...</option>
+                            @foreach ($places as $place)
+                                <option value="{{ $place['id'] }}">{{ $place['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group m-form__group">
+                        <label for="quarter">Quarter</label>
+                        <select name="quarter" class="form-control m-input m-input--square" required>
+                                <option disabled selected>Choose a quarter...</option>
+                            @foreach ($quarters->sortBy('quarter')->sortBy('year') as $quarter)
+                                <option value="{{ $quarter['id'] }}">Q{{ $quarter['quarter'] }} {{ $quarter['year'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div> --}}
-        <iframe id="excelIFrame" src = "" width='auto' height='100%' allowfullscreen webkitallowfullscreen></iframe>
-    </div>
-      
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Add Excel</button>
+            </div>
 
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editExcelModal" tabindex="-1" role="dialog" aria-labelledby="editExcelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Excel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ Form::open(array('route' => ['excel.update', 0], 'method' => 'PUT', 'class' => 'm-form')) }}
+            <div class="modal-body">
+                <input id="xlid" type="hidden" name="excel_id" value="">
+                <div class="form-group m-form__group">
+                    <label for="object">Object</label>
+                    <select name="object" class="form-control m-input m-input--square">
+                            <option disabled selected>Choose an object...</option>
+                        @foreach ($objects as $object)
+                            <option id="obj{{ $object['id'] }}" value="{{ $object['id'] }}">{{ $object['name'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group m-form__group">
+                    <label for="place">Area</label>
+                    <select name="place" class="form-control m-input m-input--square">
+                            <option disabled selected>Choose an area...</option>
+                        @foreach ($places as $place)
+                            <option id="plc{{ $place['id'] }}" value="{{ $place['id'] }}">{{ $place['name'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                <div class="form-group m-form__group">
+                    <label for="quarter">Quarter</label>
+                    <select name="quarter" class="form-control m-input m-input--square">
+                            <option disabled selected>Choose a quarter...</option>
+                        @foreach ($quarters->sortBy('quarter')->sortBy('year') as $quarter)
+                            <option id="qrt{{ $quarter['id'] }}" value="{{ $quarter['id'] }}">Q{{ $quarter['quarter'] }} {{ $quarter['year'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Edit Excel Info</button>
+            </div>
+
+            {{ Form::close() }}
+        </div>
+    </div>
 </div>
 
 <!-- end:: Content -->

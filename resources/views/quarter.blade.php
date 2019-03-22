@@ -32,12 +32,12 @@
                                 {{ Form::open(array('route' => ['quarter.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
         
                                     <div class="input-group">
-                                        <select class="form-control m-input m-input--square" name="year">
+                                        <select class="form-control m-input m-input--square" name="year" required>
                                                 @for ($i = 2010; $i < 2090; $i++)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                 @endfor
                                         </select>
-                                        <select class="form-control m-input m-input--square" name="quarter">
+                                        <select class="form-control m-input m-input--square" name="quarter" required>
                                             @for ($i = 1; $i < 5; $i++)
                                                 <option value="{{$i}}">Q{{$i}}</option>
                                             @endfor

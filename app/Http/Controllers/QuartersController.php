@@ -113,11 +113,14 @@ class QuartersController extends Controller
     public function destroy($id)
     {
         //Delete an object
-        echo 'test';
-        if(Quarters::destroy($id))
-            $flashmsg = ['success', "Object have been deleted!"];
-        else
-            $flashmsg = ['error', "An error has occured."];
-        return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
+        try{
+            Quarters::destroy($id);
+            $flashmsg = ['success', "Quarter have been deleted!"];
+            return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
+        catch (\Exception $e){
+            $flashmsg = ['error', "Quarter still have records! Cannot delete. If problem persist, please contact the admin."];
+            return redirect(route('quarter.index'))->with($flashmsg[0], $flashmsg[1]);
+        }
     }
 }
