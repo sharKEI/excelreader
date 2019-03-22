@@ -2,8 +2,6 @@
 
 @section('content')
 <!-- start:: Content -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.css" rel="stylesheet">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.js"></script>
 <div class="m-content">
 	<div class="m-portlet m-portlet--mobile">
 

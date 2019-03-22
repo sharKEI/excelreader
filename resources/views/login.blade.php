@@ -29,7 +29,17 @@ License: You must have a valid license purchased only from themeforest(the above
             active: function() {
                 sessionStorage.fonts = true;
             }
-          });
+		  });
+		  	
+			@if ($errors->has('staff_id') || $errors->has('staff_id'))
+			document.addEventListener('DOMContentLoaded', (event) => {
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: '{{ $errors->first('staff_id') }}',
+				})
+			})
+			@endif
         </script>
         <!--end::Web font -->
 
@@ -73,10 +83,10 @@ License: You must have a valid license purchased only from themeforest(the above
 								<h3 class="m-login__title">Sign In To Admin</h3>
 
 															</div>
-
-							<form class="m-login__form m-form" action="/login" method="post">
+							
+							{{ Form::open(['route' => ['login'], 'class' => 'm-login__form m-form']) }}
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" type="text" placeholder="Name" name="name" autocomplete="off">
+									<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id" autocomplete="off">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -89,13 +99,13 @@ License: You must have a valid license purchased only from themeforest(the above
 										</label>
 									</div>
 									<div class="col m--align-right">
-										<a href="javascript:;" id="m_login_forget_password" class="m-link">Forget Password ?</a>
+										<a href="{{ route('password.request') }}" class="m-link">Forgot Password ?</a>
 									</div>
 								</div>
 								<div class="m-login__form-action">
-									<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
+									<button type="submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign In</button>
 								</div>
-							</form>
+							{{ Form::close() }}
 						</div>
 
 						<div class="m-login__signup">
@@ -103,7 +113,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<h3 class="m-login__title">Register</h3>
 								<div class="m-login__desc">Enter your details to create your account:</div>
 							</div>
-							<form class="m-login__form m-form" action="{{ route('register') }}">
+							{{ Form::open(['route' => ['login'], 'class' => 'm-login__form m-form']) }}
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Name" name="name">
 								</div>
@@ -129,7 +139,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<button id="m_login_signup_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">Sign Up</button>
 									<button id="m_login_signup_cancel" class="btn btn-outline-focus  m-btn m-btn--pill m-btn--custom">Cancel</button>
 								</div>
-							</form>
+							{{ Form::close() }}
 						</div>
 
 						<div class="m-login__forget-password">
