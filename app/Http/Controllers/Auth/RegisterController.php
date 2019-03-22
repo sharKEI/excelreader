@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -46,6 +47,20 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    // public function register(Request $request)
+    // {
+    //   //if the email already exist attempt to login
+    //   $user=user::where('email','=',$request['email'])->first();
+    //   if ($user !== null){
+    //     //attempt login
+    //     $this->login($request);
+    //   }else{
+    //     //otherwise register
+    //     $this->parent_register($request);
+    //   }
+    //   return redirect()->intended($this->redirectPath());
+    // }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [

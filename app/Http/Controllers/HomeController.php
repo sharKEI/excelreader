@@ -27,4 +27,10 @@ class HomeController extends Controller
         $data['subheader'] = ['title' => 'Dashboard', 'desc' => 'Data Health Check.'];
         return view('home', $data);
     }
+
+    public function login(){
+      $data['title'] = 'Home';
+      $data['subheader'] = ['title' => 'Dashboard', 'desc' => 'Data Health Check.'];
+      return view('login', $data);
+    }
 }
