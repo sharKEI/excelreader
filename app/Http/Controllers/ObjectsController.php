@@ -53,6 +53,7 @@ class ObjectsController extends Controller
         $name = $request->input('name');
         $object = new Objects();
         $object->name = $name;
+        $object->user_id = $request->user()->id;
         if($object->save())
             $flashmsg = ['success', "Object '$name' have successfully been added!"];
         else
@@ -95,6 +96,7 @@ class ObjectsController extends Controller
         $name = $request->input('name');
         $object = Objects::find($id);
         $object->name = $name;
+        $object->user_id = $request->user()->id;
         if($object->save())
             $flashmsg = ['success', "Object '$name' have successfully been changed!"];
         else

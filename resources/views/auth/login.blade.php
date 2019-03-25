@@ -40,6 +40,15 @@ License: You must have a valid license purchased only from themeforest(the above
 				})
 			})
 			@endif
+			@if (session()->has('message'))
+			document.addEventListener('DOMContentLoaded', (event) => {
+				Swal.fire({
+					type: 'error',
+					title: 'Oops...',
+					text: '{{ session('message') }}',
+				})
+			})
+			@endif
         </script>
         <!--end::Web font -->
 
@@ -119,6 +128,9 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id">
+								</div>
+								<div class="form-group m-form__group">
+									<input class="form-control m-input" type="email" placeholder="Email Address" name="email">
 								</div>
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="password" placeholder="Password" name="password">

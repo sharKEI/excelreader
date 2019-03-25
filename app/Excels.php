@@ -25,4 +25,8 @@ class Excels extends Model
     public function revisions(){
         return $this->hasMany('App\Revisions', 'excel_id');
     }
+    
+    public function updated_by(){
+        return $this->belongsTo('App\User' , 'user_id');
+    }
 }

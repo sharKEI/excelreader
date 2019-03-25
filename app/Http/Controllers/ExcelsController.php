@@ -60,6 +60,7 @@ class ExcelsController extends Controller
         $excel->object_id = $request->input('object');
         $excel->place_id = $request->input('place');
         $excel->quarter_id = $request->input('quarter');
+        $excel->user_id = $request->user()->id;
 
         try{
             $excel->save();
@@ -121,6 +122,7 @@ class ExcelsController extends Controller
         $excel->object_id = $request->input('object');
         $excel->place_id = $request->input('place');
         $excel->quarter_id = $request->input('quarter');
+        $excel->user_id = $request->user()->id;
 
         try{
             $excel->save();

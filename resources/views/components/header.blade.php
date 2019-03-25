@@ -56,6 +56,7 @@
                             <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left"><span class="m-menu__arrow m-menu__arrow--adjust"></span>
                                 {{ Form::open(['route' => ['logout'], 'name' => 'logout']) }}
                                 <ul class="m-menu__subnav">
+                                        <li class="m-menu__item " aria-haspopup="true"><a href="{{route('user.profile')}}" class="m-menu__link "><i class="m-menu__link-icon flaticon-cogwheel-1"></i><span class="m-menu__link-text">Manage Profile</span></a></li>
                                     <li class="m-menu__item " aria-haspopup="true"><a href="javascript:document.logout.submit();" class="m-menu__link "><i class="m-menu__link-icon flaticon-reply"></i><span class="m-menu__link-text">Logout</span></a></li>
                                 </ul>
                                 {{ Form::close() }}

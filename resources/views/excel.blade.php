@@ -2,7 +2,6 @@
 
 @section('content')
 <!-- start:: Content -->
-<?php print_r() ?>
 <div class="m-content">
 	<div class="m-portlet m-portlet--mobile">
 
@@ -37,6 +36,7 @@
                         <th title="Attribute Completeness" data-field="AttComp">Att. Completeness</th>
                         <th title="area" data-field="area">Area</th>
                         <th title="quarter" data-field="quarter">Quarter</th>
+                        <th>Last Updated By</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -57,15 +57,16 @@
                                         @else
                                         <span class="m-badge m-badge--danger m-badge--wide text-white">
                                         @endif
-                                        {{ $excel->revisions->last()->attcomp }}
+                                        {{ $excel->revisions->last()->attcomp }}%
                                         </span>
                                     @else
-                                        <span class="m-badge m-badge--metal m-badge--wide text-white">None
+                                        <span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
                                     @endif
                                 </td>
                                 <td>{{ $excel->place->name }}</td>
                                 <?php $quarter = $excel->quarter->quarter; $year = $excel->quarter->year ?>
                                 <td><div style="display:none;width:0px;height:0px;">{{ $year.$quarter }}</div>{{ "Q$quarter $year" }}</td>
+                                <td>{{ $excel->revisions->last() ? $excel->revisions->last()->updated_by->name :'none' }}</td>
                                 <td>
                                     <div class="form-inline">
                                         <a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>

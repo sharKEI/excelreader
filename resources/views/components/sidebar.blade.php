@@ -17,7 +17,7 @@
                     </span>
                 </a>
             </li>
-
+            @if(Auth::user()['admin'])
             <li class="m-menu__section ">
                 <h4 class="m-menu__section-text">Settings</h4>
                 <i class="m-menu__section-icon flaticon-more-v2"></i>
@@ -50,9 +50,16 @@
                                 <span class="m-menu__link-text">Excels</span>
                             </a>
                         </li>
+                        <li class="m-menu__item {{ URL::current() == route('users.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+                            <a href="{{ route('users.index') }}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i>
+                                <span class="m-menu__link-text">Users</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
+            @endif
 
             <li class="m-menu__section ">
                 <h4 class="m-menu__section-text">Reports</h4>
