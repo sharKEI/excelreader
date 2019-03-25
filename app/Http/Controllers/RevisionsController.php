@@ -24,11 +24,11 @@ class RevisionsController extends Controller
             $datas = Excel::selectSheets('Output')->load($path)->get(array('check'));
             $fail = 0;
             $pass = 0;
-            array_change_key_case($datas,CASE_UPPER);
+            //array_change_key_case($datas,CASE_LOWER);
             foreach ($datas as $data) {
-                if (strtolower($data['CHECK']) == 'fail')
+                if ($data['check'] == 'Fail')
                     $fail += 1;
-                if (strtolower($data['CHECK']) == 'pass')
+                if ($data['check'] == 'Pass')
                     $pass += 1;
             }
             $attcomp = $pass / ($fail + $pass) * 100;
@@ -43,6 +43,7 @@ class RevisionsController extends Controller
         $revision->filename = $file->getClientOriginalName();
         $revision->excel_id = $request->input('excel_id');
         $revision->attcomp = $attcomp;
+        $revision->user_id = $request->user()->id;
 
         $excel = Excels::find($revision->excel_id);
         $place = $excel->place->name;
@@ -55,18 +56,18 @@ class RevisionsController extends Controller
         }
         catch(\Exception $e){
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
         try{
             $file->move($destinationPath ,$revision->id.' '.$revision->filename);
             $flashmsg = ['success', "New revision created. Excel successfully uploaded."];
-            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
             $revision->delete();
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
     }

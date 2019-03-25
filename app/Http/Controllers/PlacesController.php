@@ -50,6 +50,7 @@ class PlacesController extends Controller
         $name = $request->input('name');
         $place = new Places();
         $place->name = $name;
+        $place->user_id = $request->user()->id;
         if($place->save())
             $flashmsg = ['success', "Place '$name' have successfully been added!"];
         else
@@ -92,6 +93,7 @@ class PlacesController extends Controller
         $name = $request->input('name');
         $place = Places::find($id);
         $place->name = $name;
+        $place->user_id = $request->user()->id;
         if($place->save())
             $flashmsg = ['success', "Place '$name' have successfully been changed!"];
         else

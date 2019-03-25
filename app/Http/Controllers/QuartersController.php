@@ -63,6 +63,7 @@ class QuartersController extends Controller
         $quarter = new Quarters();
         $quarter->quarter = $quart;
         $quarter->year = $year;
+        $quarter->user_id = $request->user()->id;
         if($quarter->save())
             $flashmsg = ['success', "Quarter 'Q$quart $year' have successfully been added!"];
         else

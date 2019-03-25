@@ -73,10 +73,10 @@
                                     @else
                                     <span class="m-badge m-badge--danger m-badge--wide text-white">
                                     @endif
-                                    {{ $revision->attcomp }}
+                                    {{ $revision->attcomp }}%
                                     </span>
                                 </td>
-                                <td>{{ 'updated_by' }}</td>
+                                <td>{{ $revision->updated_by->name }}</td>
                                 <td>
                                     <div class="form-inline">
                                         <a href="{{ route('revision.show', ['id' => $revision->id]) }}" title="View Excel" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a>

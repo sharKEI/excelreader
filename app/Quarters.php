@@ -11,4 +11,7 @@ class Quarters extends Model
     {
         return $this->hasMany('App\Excels', 'quarter_id');
     }
+    public function updated_by(){
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

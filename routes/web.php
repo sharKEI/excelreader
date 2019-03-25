@@ -11,40 +11,47 @@
 |
 */
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
     //MAIN ROUTES
     Route::get('/home', 'Auth\HomeController@index')->name('home');
     Route::get('/', 'Auth\HomeController@index')->name('home');
 
-    Route::get('/upload','FileController@index')->name('add-file');
-    Route::post('import','FileController@import')->name('import');
+    // Route::get('/upload','FileController@index')->name('add-file');
+    // Route::post('import','FileController@import')->name('import');
 
     //Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/revision/store', 'RevisionsController@store')->name('revision.store');
 
-    Route::get('/revision/show/{id}', 'RevisionsController@show')->name('revision.show');
+    Route::get('/revision/show/{user_id}', 'RevisionsController@show')->name('revision.show');
 
-});
+    Route::get('/user/profile/', 'UsersController@profile')->name('user.profile');
 
-Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
-{
+    Route::post('/user/chgpass/', 'UsersController@chgpass')->name('user.chgpass');
 
-    //QUARTERS ROUTE
-    Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
+    Route::post('/user/update/', 'UsersController@updateprofile')->name('user.update');
 
-    //EXCELS ROUTE
-    Route::resource('/excel', 'ExcelsController');
+    Route::resource('/excel', 'ExcelsController')->only('show');
 
-    //OBJECTS ROUTE
-    Route::resource('/object', 'ObjectsController')->except('create', 'show', 'edit');
+    Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
+    {
+        //QUARTERS ROUTE
+        Route::resource('/quarter', 'QuartersController')->except('create', 'show', 'edit', 'update');
 
-    //PLACES ROUTE
-    Route::resource('/place', 'PlacesController')->except('create', 'show', 'edit');
+        //EXCELS ROUTE
+        Route::resource('/excel', 'ExcelsController')->except('show');
+
+        //OBJECTS ROUTE
+        Route::resource('/object', 'ObjectsController')->except('create', 'show', 'edit');
+
+        //PLACES ROUTE
+        Route::resource('/place', 'PlacesController')->except('create', 'show', 'edit');
+
+        //USERS ROUTE
+        Route::resource('/users', 'UsersController')->except('create', 'show', 'edit');
+    });
+
 });
 
 Auth::routes();
-
-// Route::get('/login', 'HomeController@login')->name('login');
-// Route::post('/login', 'Auth\HomeController@login')->name('login');
 

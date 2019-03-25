@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Objects;
+use App\Quarters;
+use App\Places;
 use App\Excels;
 
 class HomeController extends Controller
@@ -27,7 +30,16 @@ class HomeController extends Controller
     {
         $data['title'] = 'Home';
         $data['subheader'] = ['title' => 'Dashboard', 'desc' => 'Data Health Check.'];
-        $data['excels'] = Excels::all();
+        $where = [];
+        if(isset($_GET['obj'], $_GET['area'], $_GET['quart'])){
+          if($_GET['obj']) array_push($where, ['object_id', '=', $_GET['obj']]);
+          if($_GET['area']) array_push($where, ['place_id', '=', $_GET['area']]);
+          if($_GET['quart']) array_push($where, ['quarter_id', '=', $_GET['quart']]);
+        }
+        $data['excels'] = Excels::where($where)->get();
+        $data['quarters'] = Quarters::all();
+        $data['objects'] = Objects::all();
+        $data['places'] = Places::all();
         return view('home', $data);
     }
 
