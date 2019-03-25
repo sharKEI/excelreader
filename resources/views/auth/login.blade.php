@@ -30,7 +30,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 sessionStorage.fonts = true;
             }
 		  });
-		  	
+
 			@if ($errors->has('staff_id') || $errors->has('password'))
 			document.addEventListener('DOMContentLoaded', (event) => {
 				Swal.fire({
@@ -74,7 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						<div class="m-login__logo">
 							<a href="#">
-							<img src="./assets/app/media/img/logos/logo-2.png">
+							<img src="{{url('./assets/app/media/img/logos/insight.png')}}">
 							</a>
 						</div>
 
@@ -83,7 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<h3 class="m-login__title">Sign In To Admin</h3>
 
 															</div>
-							
+
 							{{ Form::open(['route' => ['login'], 'class' => 'm-login__form m-form']) }}
 								<div class="form-group m-form__group">
 									<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id" autocomplete="off">
@@ -174,10 +174,10 @@ License: You must have a valid license purchased only from themeforest(the above
 	</div>
 	<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center" style="background-image: url(./assets/app/media/img//bg/bg-4.jpg)">
 		<div class="m-grid__item">
-			<h3 class="m-login__welcome">Join Our Community</h3>
-			<p class="m-login__msg">
+			<h1 class="m-login__welcome">INSIGHT</h1>
+			<!-- <p class="m-login__msg">
 				Lorem ipsum dolor sit amet, coectetuer adipiscing<br>elit sed diam nonummy et nibh euismod
-			</p>
+			</p> -->
 		</div>
 	</div>
 </div>
