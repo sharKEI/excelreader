@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
 
-        <title>Metronic | Login Page - 1</title>
+        <title>INSIGHTS</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
@@ -89,7 +89,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 						<div class="m-login__signin">
 							<div class="m-login__head">
-								<h3 class="m-login__title">Sign In To Admin</h3>
+								<h3 class="m-login__title">Sign In</h3>
 
 															</div>
 
