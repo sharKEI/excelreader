@@ -184,9 +184,9 @@ License: You must have a valid license purchased only from themeforest(the above
 				</div>
 		</div>
 	</div>
-	<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center" style="background-image: url(./assets/app/media/img/bg/TNB.png)">
+	<div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content m-grid-item--center" style="background-image: url(./assets/app/media/img/bg/TNB-6.jpg); background-position: 45px 0">
 		<div class="m-grid__item">
-			<h1 class="m-login__welcome">INSIGHT</h1>
+			<!-- <h1 class="m-login__welcome">INSIGHT</h1> -->
 			<!-- <p class="m-login__msg">
 				Lorem ipsum dolor sit amet, coectetuer adipiscing<br>elit sed diam nonummy et nibh euismod
 			</p> -->
