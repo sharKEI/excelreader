@@ -34,7 +34,7 @@
 											<select class="form-control" name="obj">
 												<option value="0">All</option>
 												@foreach ($objects as $object)
-												<option value="{{ $object->id }}" 
+												<option value="{{ $object->id }}"
 														{{ app('request')->input('obj') == $object->id ? 'selected' : '' }}>
 														{{ $object->name }}
 												</option>
@@ -52,7 +52,7 @@
 											<select class="form-control"  name="area">
 												<option value="0">All</option>
 												@foreach ($places as $place)
-												<option value="{{ $place->id }}" 
+												<option value="{{ $place->id }}"
 													{{ app('request')->input('area') == $place->id ? 'selected' : '' }}>
 													{{ $place->name }}
 												</option>
@@ -184,24 +184,23 @@
 				</div>
 				{{ Form::open(array('route' => ['revision.store'], 'class' => 'm-form', 'enctype' => 'multipart/form-data')) }}
 				<div class="modal-body">
-						<input type="hidden" name="excel_id" value="{{ $excel->id }}">
 						<div class="form-group m-form__group">
 							<label for="object">Revision Notes</label>
 							<input type="text" name="notes" class="form-control m-input m-input--square">
 						</div>
-	
-						
+
+
 						<div class="form-group m-form__group">
 							<label for="quarter">Upload File</label>
 							<input type="file" name="xlfile" class="form-control m-input m-input--square">
 						</div>
-	
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button class="btn btn-primary" type="submit">Add Revision</button>
 				</div>
-	
+
 				{{ Form::close() }}
 			</div>
 		</div>
