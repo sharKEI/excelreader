@@ -52,7 +52,7 @@
                         <th title="Revision Note" data-field="RN">Revision Note</th>
                         <th title="Attribute Completeness" data-field="AttComp">Att. Completeness</th>
                         <th title="Updated By" data-field="UB">Updated By</th>
-                        
+
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,7 +73,7 @@
                                     @else
                                     <span class="m-badge m-badge--danger m-badge--wide text-white">
                                     @endif
-                                    {{ $revision->attcomp }}%
+                                    {{ round($revision->attcomp, 2, PHP_ROUND_HALF_UP) }}%
                                     </span>
                                 </td>
                                 <td>{{ $revision->updated_by->name }}</td>
@@ -85,7 +85,7 @@
                                         {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excel.destroy', $excel->id]]) }}
                                             <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
-                                    </div>  
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -119,7 +119,7 @@
                         <input type="text" name="notes" class="form-control m-input m-input--square">
                     </div>
 
-                    
+
                     <div class="form-group m-form__group">
                         <label for="quarter">Upload File</label>
                         <input type="file" name="xlfile" class="form-control m-input m-input--square">
@@ -135,6 +135,6 @@
         </div>
     </div>
 </div>
-      
+
 <!-- end:: Content -->
 @endsection

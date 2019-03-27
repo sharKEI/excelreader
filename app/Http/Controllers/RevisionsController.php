@@ -14,12 +14,13 @@ class RevisionsController extends Controller
         $this->validate($request, array(
             'notes' => 'required',
             'xlfile' => 'required',
+            'excel_id' => 'required',
         ));
 
-        $route = route('excel.show', ['id' => $request->input('excel_id')]);    
+        $route = route('excel.show', ['id' => $request->input('excel_id')]);
         $file = $request->file('xlfile');
 
-        $path = $file->getRealPath();
+        $path = $file->getPathName();
         try{
             $datas = Excel::selectSheets('Output')->load($path)->get(array('check'));
             $fail = 0;
@@ -79,7 +80,7 @@ class RevisionsController extends Controller
         $place = $revision->excel->place->name;
         $filename = $revision->id.' '.$revision->filename;
         $path = "storage/uploads/'$quarter'/$place/$object/'$filename'";
-        
+
         $ods = basename($filename, '.xlsx').'.ods';
         $view = "storage/views/$ods";
 
@@ -100,7 +101,7 @@ class RevisionsController extends Controller
         // $place = $revision->excel->place->name;
         // $filename = $revision->id.' '.$revision->filename;
         // $path = "storage/uploads/$quarter/$place/$object/$filename";
-        
+
         // $excel = Excel::load($path)->get();
 
         // //dd($excel);
