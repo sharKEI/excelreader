@@ -14,9 +14,10 @@ class RevisionsController extends Controller
         $this->validate($request, array(
             'notes' => 'required',
             'xlfile' => 'required',
+            'excel_id' => 'required',
         ));
 
-        $route = route('excel.show', ['id' => $request->input('excel_id')]);    
+        $route = route('excel.show', ['id' => $request->input('excel_id')]);
         $file = $request->file('xlfile');
 
         $path = $file->getRealPath();
@@ -56,18 +57,18 @@ class RevisionsController extends Controller
         }
         catch(\Exception $e){
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
         try{
             $file->move($destinationPath ,$revision->id.' '.$revision->filename);
             $flashmsg = ['success', "New revision created. Excel successfully uploaded."];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
             $revision->delete();
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
     }
@@ -79,7 +80,7 @@ class RevisionsController extends Controller
         $place = $revision->excel->place->name;
         $filename = $revision->id.' '.$revision->filename;
         $path = "storage/uploads/'$quarter'/$place/$object/'$filename'";
-        
+
         $ods = basename($filename, '.xlsx').'.ods';
         $view = "storage/views/$ods";
 
@@ -100,7 +101,7 @@ class RevisionsController extends Controller
         // $place = $revision->excel->place->name;
         // $filename = $revision->id.' '.$revision->filename;
         // $path = "storage/uploads/$quarter/$place/$object/$filename";
-        
+
         // $excel = Excel::load($path)->get();
 
         // //dd($excel);

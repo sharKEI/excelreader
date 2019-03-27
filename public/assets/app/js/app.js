@@ -45,6 +45,10 @@ function editExcel(obj, plc, qrt, xlid){
     document.getElementById('xlid').value = xlid;
 }
 
+function addRev(xlid){
+    document.querySelector('#excelId').value = xlid;
+}
+
 // function apiExcel(id){
 //     $("#loadExcel").empty();
 //     $("#loadExcel").load("/revision/show/"+id)

@@ -160,7 +160,7 @@
 							<td>
 								@if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="View Latest Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a>@endif
 								<a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
-								<a data-toggle="modal" data-target="#newRevModal" title="Add New Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-add"></i></a>
+								<a onclick="addRev({{ $excel->id }})" data-toggle="modal" data-target="#newRevModal" title="Add New Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-add"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -182,7 +182,8 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				{{ Form::open(array('route' => ['revision.store'], 'class' => 'm-form', 'enctype' => 'multipart/form-data')) }}
+                {{ Form::open(array('route' => ['revision.store'], 'class' => 'm-form', 'enctype' => 'multipart/form-data')) }}
+                <input id="excelId" type="hidden" name="excel_id" value="">
 				<div class="modal-body">
 						<div class="form-group m-form__group">
 							<label for="object">Revision Notes</label>
