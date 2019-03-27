@@ -79,21 +79,39 @@ class RevisionsController extends Controller
         $quarter = 'Q'.$revision->excel->quarter->quarter.' '.$revision->excel->quarter->year;
         $place = $revision->excel->place->name;
         $filename = $revision->id.' '.$revision->filename;
-        $path = "storage/uploads/'$quarter'/$place/$object/'$filename'";
+        $path = "/storage/uploads/$quarter/$place/$object/$filename";
 
-        $ods = basename($filename, '.xlsx').'.ods';
-        $view = "storage/views/$ods";
+		echo public_path().$path;
 
-        if(file_exists(public_path().$view)){
-            echo 'test';
-            return redirect("ViewerJS/#../$view");
-        }
+		if(!file_exists(public_path().$path)){ // file does not exist
+			die('file not found');
+		} else {
+			copy(public_path().$path, public_path().'/storage/'.$filename);
+			// header("Cache-Control: public");
+			// header("Content-Description: File Transfer");
+			//header("Content-Disposition: attachment; filename=$revision->filename");
+			// header("Content-Type: application/zip");
+			// header("Content-Transfer-Encoding: binary");
 
-        $input = public_path()."/$path";
-        $ods = basename($filename, '.xlsx').'.ods';
-        $output = public_path()."/storage/views/'$ods'";
-        exec("unoconv -f ods -o $output $input");
-        return redirect("ViewerJS/#../$view");
+			// read the file from disk
+			//readfile(public_path().'/storage/'.$filename);
+			header("Location: ".url('/').'/storage/'.$filename);
+			//unlink(public_path().'/storage/'.$filename);
+		}
+
+        // $ods = basename($filename, '.xlsx').'.ods';
+        // $view = "storage/views/$ods";
+
+        // if(file_exists(public_path().$view)){
+            // echo 'test';
+            // return redirect("ViewerJS/#../$view");
+        // }
+
+        // $input = public_path()."/$path";
+        // $ods = basename($filename, '.xlsx').'.ods';
+        // $output = public_path()."/storage/views/'$ods'";
+        // exec("unoconv -f ods -o $output $input");
+        // return redirect("ViewerJS/#../$view");
 
         // $revision = Revisions::find($id);
         // $object = $revision->excel->object->name;
