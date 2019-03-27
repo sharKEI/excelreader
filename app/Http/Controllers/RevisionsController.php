@@ -20,7 +20,7 @@ class RevisionsController extends Controller
         $route = route('excel.show', ['id' => $request->input('excel_id')]);
         $file = $request->file('xlfile');
 
-        $path = $file->getRealPath();
+        $path = $file->getPathName();
         try{
             $datas = Excel::selectSheets('Output')->load($path)->get(array('check'));
             $fail = 0;
