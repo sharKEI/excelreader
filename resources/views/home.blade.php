@@ -147,7 +147,7 @@
 								@else
 								<span class="m-badge m-badge--danger m-badge--wide text-white">
 								@endif
-								{{  $excel->revisions->last()->attcomp }}%</span>
+								{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%</span>
 							@else
 								<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 							@endif

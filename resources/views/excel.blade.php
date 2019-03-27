@@ -57,7 +57,7 @@
                                         @else
                                         <span class="m-badge m-badge--danger m-badge--wide text-white">
                                         @endif
-                                        {{ $excel->revisions->last()->attcomp }}%
+                                        {{ round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%
                                         </span>
                                     @else
                                         <span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
@@ -76,7 +76,7 @@
                                         {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excel.destroy', $excel->id]]) }}
                                             <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
-                                    </div>  
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -90,7 +90,7 @@
 
     </div>
 </div>
-      
+
 <!-- Modal -->
 <div class="modal fade" id="newExcelModal" tabindex="-1" role="dialog" aria-labelledby="newExcelModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -123,7 +123,7 @@
                             @endforeach
                         </select>
                     </div>
-                    
+
                     <div class="form-group m-form__group">
                         <label for="quarter">Quarter</label>
                         <select name="quarter" class="form-control m-input m-input--square" required>
@@ -178,7 +178,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div class="form-group m-form__group">
                     <label for="quarter">Quarter</label>
                     <select name="quarter" class="form-control m-input m-input--square">

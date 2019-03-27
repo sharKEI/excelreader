@@ -57,18 +57,18 @@ class RevisionsController extends Controller
         }
         catch(\Exception $e){
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
         try{
             $file->move($destinationPath ,$revision->id.' '.$revision->filename);
             $flashmsg = ['success', "New revision created. Excel successfully uploaded."];
-            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
             $revision->delete();
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            //return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
     }
