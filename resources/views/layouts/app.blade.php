@@ -70,7 +70,7 @@ Contact: fadhil.kamil@tnb.com.my
     <!--RTL version:<link href="../../../assets/demo/base/style.bundle.rtl.css" rel="stylesheet" type="text/css" />-->
 
     <!--end::Global Theme Styles -->
-    <link rel="shortcut icon" href="{{ asset('demo/media/img/logo/faviconX.ico') }}" />
+    <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon (2).ico" />
 </head>
 <!-- end::Head -->
 
