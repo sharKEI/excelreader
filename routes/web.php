@@ -32,6 +32,8 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
 
     Route::resource('/excel', 'ExcelsController')->only('show');
 
+    Route::resource('/pdf', 'FileController');
+
     Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     {
         //QUARTERS ROUTE
@@ -50,7 +52,7 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
         Route::resource('/users', 'UsersController')->except('create', 'show', 'edit');
 
         //PDF ROUTE
-        Route::resource('/pdffile', 'ExcelsController')->except('show');
+        //Route::resource('/pdffile', 'ExcelsController')->except('show');
         // Route::get('/upload','FileController@index')->name('add-file');
         // Route::post('import','FileController@import')->name('import');
     });

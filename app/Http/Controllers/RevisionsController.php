@@ -81,8 +81,6 @@ class RevisionsController extends Controller
         $filename = $revision->id.' '.$revision->filename;
         $path = "/storage/uploads/$quarter/$place/$object/$filename";
 
-		echo public_path().$path;
-
 		if(!file_exists(public_path().$path)){ // file does not exist
 			die('file not found');
 		} else {

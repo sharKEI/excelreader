@@ -49,6 +49,20 @@ function addRev(xlid){
     document.querySelector('#excelId').value = xlid;
 }
 
+    $(document).ready(function() {
+
+      $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+
 // function apiExcel(id){
 //     $("#loadExcel").empty();
 //     $("#loadExcel").load("/revision/show/"+id)
