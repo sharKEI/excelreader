@@ -16,7 +16,7 @@
             {{-- Form validation error --}}
             @if ($errors->any())
             <div class="m-alert m-alert--outline m-alert--outline-2x alert alert-danger alert-dismissible fade show" role="alert">
-                <p><b>Error!</b></p>
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -25,7 +25,7 @@
             </div>
             @endif
 
-            <form method="post" action="{{url('file')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('pdf.store')}}" enctype="multipart/form-data">
               {{csrf_field()}}
 
                     <div class="input-group control-group increment" >
@@ -43,11 +43,6 @@
                         </div>
                       </div>
                     </div> -->
-
-                  
-
-
-
               </form>
         </div>
 
