@@ -34,6 +34,8 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
 
     Route::resource('/pdf', 'FileController');
 
+    Route::resource('/map', 'MapsController');
+
     Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     {
         //QUARTERS ROUTE

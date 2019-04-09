@@ -17,6 +17,18 @@
                     </span>
                 </a>
             </li>
+            <li class="m-menu__item  {{ URL::current() == route('map.index') ? 'm-menu__item--active' : '' }}" aria-haspopup="true">
+                <a href="{{ route('map.index') }}" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-map-location"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text">Map Collections</span>
+                            <span class="m-menu__link-badge">
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
             @if(Auth::user()['admin'])
             <li class="m-menu__section ">
                 <h4 class="m-menu__section-text">Settings</h4>

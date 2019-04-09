@@ -49,6 +49,15 @@ function addRev(xlid){
     document.querySelector('#excelId').value = xlid;
 }
 
+function modalMap(obj){
+    var map = document.getElementById('mapsrc');
+    var mapTitle = document.getElementById('mapTitle');
+    var mapUser = document.getElementById('mapUser');
+    map.src = obj.querySelector('.map').src;
+    mapTitle.innerHTML = obj.querySelector('#passTitle').innerText;
+    mapUser.innerHTML = 'Uploaded by: ' + obj.querySelector('#passUser').value;
+}
+
     $(document).ready(function() {
 
       $(".btn-success").click(function(){
