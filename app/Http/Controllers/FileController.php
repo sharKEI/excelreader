@@ -51,13 +51,14 @@ class FileController extends Controller
                 $name=$file->getClientOriginalName();
                 $file->move(public_path().'/files/', $name);
                 $data[] = $name;
+                $file= new File();
+                $file->filename=json_encode($data);
+
+                $file->save();
             }
          }
 
-         $file= new File();
-         $file->filename=json_encode($data);
 
-         $file->save();
 
         return back()->with('success', 'Your files has been successfully added');
     }
