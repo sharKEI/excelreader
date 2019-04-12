@@ -75,7 +75,7 @@
 
                               <td>
                                     <div class="form-inline">
-                                        <button onclick='pdfview("{{url("/storage/uploads/reports/$quarter/$file->id $file->filename")}}")' data-toggle="modal" data-target="#pdfviewModal" title="View File" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></button>
+                                        <button onclick='pdfview("{{url("/storage/uploads/reports/$quarter/$file->id $file->filename")}}")' data-toggle="modal" data-target="#pdfviewModal" title="View File" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></button>
                                         &nbsp
 																				<!-- {{url('/pdfjs/viewer.html?file=')}} -->
 																				 <button onclick="editFile({{ $file->id.',\''.$file->name.'\','.$file->quarter_id}})" data-toggle="modal" data-target="#editFileModal" title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
