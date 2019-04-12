@@ -122,11 +122,11 @@
 						<tr>
 							<th title="No" data-field="No">No</th>
 							<th title="Object" data-field="Object">Object</th>
-							{{-- <th title="Attribute Accuracy - FL or label Check" data-field="AttCom">Attribute Accuracy</th> --}}
+							<!-- {{-- <th title="Attribute Accuracy - FL or label Check" data-field="AttCom">Attribute Accuracy</th> --}} -->
 							<th title="Attribute Completeness - null record check" data-field="AttAcc">Att. Completeness</th>
-							{{-- <th title="Spatial Accuracy - less than 5 m" data-field="SpaAcc">Spatial Accuracy</th> --}}
-							<th>area</th>
-							<th>quarter</th>
+							<!-- {{-- <th title="Spatial Accuracy - less than 5 m" data-field="SpaAcc">Spatial Accuracy</th> --}} -->
+							<th title="Area" data-field="area">Area</th>
+							<th title="Quarter Name" data-field="quarter">Quarter</th>
 							<th>Updated By</th>
 							<th>Action</th>
 						</tr>
