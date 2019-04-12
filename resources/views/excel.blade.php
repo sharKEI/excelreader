@@ -91,7 +91,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Add -->
 <div class="modal fade" id="newExcelModal" tabindex="-1" role="dialog" aria-labelledby="newExcelModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -146,12 +146,12 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Edit -->
 <div class="modal fade" id="editExcelModal" tabindex="-1" role="dialog" aria-labelledby="editExcelModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add New Excel</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit New Excel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
