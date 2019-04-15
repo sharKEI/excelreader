@@ -16,8 +16,7 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
     Route::get('/home', 'Auth\HomeController@index')->name('home');
     Route::get('/', 'Auth\HomeController@index')->name('home');
 
-    // Route::get('/upload','FileController@index')->name('add-file');
-    // Route::post('import','FileController@import')->name('import');
+
 
     //Route::get('/home', 'HomeController@index')->name('home');
 
@@ -32,6 +31,10 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
     Route::post('/user/update/', 'UsersController@updateprofile')->name('user.update');
 
     Route::resource('/excel', 'ExcelsController')->only('show');
+
+    Route::resource('/pdf', 'FileController');
+
+    Route::resource('/map', 'MapsController');
 
     Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     {
@@ -49,9 +52,13 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
 
         //USERS ROUTE
         Route::resource('/users', 'UsersController')->except('create', 'show', 'edit');
+
+        //PDF ROUTE
+        //Route::resource('/pdffile', 'ExcelsController')->except('show');
+        // Route::get('/upload','FileController@index')->name('add-file');
+        // Route::post('import','FileController@import')->name('import');
     });
 
 });
 
 Auth::routes();
-

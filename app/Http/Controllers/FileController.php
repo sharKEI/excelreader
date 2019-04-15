@@ -2,62 +2,108 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\File;
 use Illuminate\Http\Request;
-use Session;
-use Excel;
-use File;
 
 class FileController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return view('add-file');
+      //Main excel upload form
+      $data['title'] = 'PDF Files';
+      $data['subheader'] = ['title' => 'PDF Files', 'desc' => 'Upload PDF file(s).'];
+      return view('pdf',$data);
     }
 
-    public function import(Request $request){
-        //validate the xls file
-        $this->validate($request, array(
-            'file'      => 'required'
-        ));
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
-        if($request->hasFile('file')){
-            $extension = File::extension($request->file->getClientOriginalName());
-            if ($extension == "xlsx" || $extension == "xls" || $extension == "csv") {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+          'filename'=>'required',
+          'filename.*'=>'mimes:pdf'
+        ]);
 
-                $path = $request->file->getRealPath();
-                $data = Excel::load($path, function($reader) {
-                })->get();
-                if(!empty($data) && $data->count()){
+        if($request->hasfile('filename'))
+         {
 
-                    foreach ($data as $key => $value) {
-                        $insert[] = [
-                        'name' => $value->name,
-                        'email' => $value->email,
-                        'phone' => $value->phone,
-                        ];
-                    }
-
-                    if(!empty($insert)){
-
-                        $insertData = DB::table('files')->insert($insert);
-                        if ($insertData) {
-                            Session::flash('success', 'Your Data has successfully imported');
-                        }else {
-                            Session::flash('error', 'Error inserting the data..');
-                            return back();
-                        }
-                    }
-                }
-
-                return back();
-
-            }else {
-                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid xls/csv file..!!');
-                return back();
+            foreach($request->file('filename') as $file)
+            {
+                $name=$file->getClientOriginalName();
+                $file->move(public_path().'/files/', $name);
+                $data[] = $name;
             }
-        }
+         }
+
+         $file= new File();
+         $file->filename=json_encode($data);
+
+         $file->save();
+
+        return back()->with('success', 'Your files has been successfully added');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

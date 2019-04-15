@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-        <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon.ico" />
+        <link rel="shortcut icon" href="assets/demo/default/media/img/logo/favicon (2).ico" />
     </head>
     <!-- end::Head -->
 
