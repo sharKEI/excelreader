@@ -18,6 +18,11 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename');
+            $table->string('name');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('quarter_id');
+            $table->foreign('quarter_id')->references('id')->on('quarters');
             $table->timestamps();
         });
     }

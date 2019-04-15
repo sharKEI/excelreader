@@ -45,6 +45,16 @@ function editExcel(obj, plc, qrt, xlid){
     document.getElementById('xlid').value = xlid;
 }
 
+function editFile(id, name, qrt){
+    document.getElementById('name').value = name;
+    document.getElementById('qrt'+qrt).selected = true;
+    document.getElementById('file_id').value = id;
+}
+
+function pdfview(url){
+    document.getElementById('pdfview').src = '/pdfjs/viewer.html?file='+url;
+}
+
 function addRev(xlid){
     document.querySelector('#excelId').value = xlid;
 }
