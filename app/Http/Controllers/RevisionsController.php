@@ -146,15 +146,21 @@ class RevisionsController extends Controller
     public function update(Request $request, $id)
     {
         //Update an Attribute Accuracy
-        $name = $request->input('attacc');
         $revision = Revisions::find($id);
-        $revision->attacc = $attacc;
+        if($request->input('attacc')){
+          $revision->attacc= $request->input('attacc');
+          $valupdate=$revision->attacc;
+        }
+        else {
+          $revision->spatacc= $request->input('spatacc');
+          $valupdate=$revision->spatacc;
+        }
         $revision->user_id = $request->user()->id;
-        if($object->save())
-            $flashmsg = ['success', "Object '$name' have successfully been changed!"];
+        if($revision->save())
+            $flashmsg = ['success', "Value '$valupdate' have successfully been changed!"];
         else
             $flashmsg = ['error', "An error has occured."];
-        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
+        return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
     }
 
 }

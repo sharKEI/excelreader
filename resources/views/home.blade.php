@@ -141,7 +141,7 @@
 								@if($excel->revisions->last()->attcomp >= 80)
 								<span class="m-badge m-badge--success m-badge--wide text-white">
 								@elseif($excel->revisions->last()->attcomp >= 50)
-								<span class="m-badge m-badge--info m-badge--wide">
+								<span class="m-badge m-badge--info m-badge--wide text-white edit-att">
 								@elseif($excel->revisions->last()->attcomp >= 30)
 								<span class="m-badge m-badge--warning m-badge--wide text-white">
 								@else
@@ -155,39 +155,44 @@
 							<td>
 								@if(!empty($excel->revisions->last()))
 									@if($excel->revisions->last()->attacc >= 80)
-									<span class="m-badge m-badge--success m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
 									@elseif($excel->revisions->last()->attacc >= 50)
-									<span class="m-badge m-badge--info m-badge--wide">
+									<span title="Click to edit" class="m-badge m-badge--info m-badge--wide text-white edit-att">
 									@elseif($excel->revisions->last()->attacc >= 30)
-									<span class="m-badge m-badge--warning m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
 									@else
-									<span class="m-badge m-badge--danger m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
 									@endif
 									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%</span>
 								@else
-									<span class="m-badge m-badge--metal m-badge--wide text-white edit-att">None</span>
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
 									<span style="display:none;">
-										{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.show', $excel->revisions->last()['id']]]) }}
-												<input type="hidden" name="attacc" value="">
+										{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
+												<input class="percentage" type="hidden" name="attacc" value="">
 										{{ Form::close() }}
 									</span>
 							</td>
 							<td>
 								@if(!empty($excel->revisions->last()))
 									@if($excel->revisions->last()->spatacc >= 80)
-									<span class="m-badge m-badge--success m-badge--wide text-white">
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
 									@elseif($excel->revisions->last()->spatacc >= 50)
-									<span class="m-badge m-badge--info m-badge--wide">
+									<span title="Click to edit" class="m-badge m-badge--info m-badge--wide text-white edit-att">
 									@elseif($excel->revisions->last()->spatacc >= 30)
-									<span class="m-badge m-badge--warning m-badge--wide text-white">
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
 									@else
-									<span class="m-badge m-badge--danger m-badge--wide text-white">
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
 									@endif
 									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%</span>
 								@else
 									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
+								<span style="display:none;">
+									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
+											<input class="percentage" type="hidden" name="spatacc" value="">
+									{{ Form::close() }}
+								</span>
 							</td>
 							<td>{{ $excel->place->name }}</td>
 							<td>Q{{ $excel->quarter->quarter }} {{ $excel->quarter->year }}</td>
