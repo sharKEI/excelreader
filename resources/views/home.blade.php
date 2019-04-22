@@ -122,9 +122,9 @@
 						<tr>
 							<th title="No" data-field="No">No</th>
 							<th title="Object" data-field="Object">Object</th>
-							<!-- {{-- <th title="Attribute Accuracy - FL or label Check" data-field="AttCom">Attribute Accuracy</th> --}} -->
-							<th title="Attribute Completeness - null record check" data-field="AttAcc">Att. Completeness</th>
-							<!-- {{-- <th title="Spatial Accuracy - less than 5 m" data-field="SpaAcc">Spatial Accuracy</th> --}} -->
+							<th title="Attribute Completeness - null record check" data-field="AttAcc">Attribute Completeness</th>
+							<th title="Attribute Accuracy - FL or label Check" data-field="AttCom">Attribute Accuracy</th>
+							<th title="Spatial Accuracy - less than 5 m" data-field="SpaAcc">Spatial Accuracy</th>
 							<th title="Area" data-field="area">Area</th>
 							<th title="Quarter Name" data-field="quarter">Quarter</th>
 							<th>Updated By</th>
@@ -152,13 +152,48 @@
 								<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 							@endif
 							</td>
-							{{-- <td><span class="m-badge m-badge--success m-badge--wide"><a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">100%</td> --}}
-							{{-- <td><span class="m-badge m-badge--success m-badge--wide"><a href="data/dhc/2018_q5/crs/26. PPU-SSU.xlsx" style="color:white">100% </a></span></td> --}}
+							<td>
+								@if(!empty($excel->revisions->last()))
+									@if($excel->revisions->last()->attacc >= 80)
+									<span class="m-badge m-badge--success m-badge--wide text-white edit-att">
+									@elseif($excel->revisions->last()->attacc >= 50)
+									<span class="m-badge m-badge--info m-badge--wide">
+									@elseif($excel->revisions->last()->attacc >= 30)
+									<span class="m-badge m-badge--warning m-badge--wide text-white edit-att">
+									@else
+									<span class="m-badge m-badge--danger m-badge--wide text-white edit-att">
+									@endif
+									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%</span>
+								@else
+									<span class="m-badge m-badge--metal m-badge--wide text-white edit-att">None</span>
+								@endif
+									<span style="display:none;">
+										{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.show', $excel->revisions->last()['id']]]) }}
+												<input type="hidden" name="attacc" value="">
+										{{ Form::close() }}
+									</span>
+							</td>
+							<td>
+								@if(!empty($excel->revisions->last()))
+									@if($excel->revisions->last()->spatacc >= 80)
+									<span class="m-badge m-badge--success m-badge--wide text-white">
+									@elseif($excel->revisions->last()->spatacc >= 50)
+									<span class="m-badge m-badge--info m-badge--wide">
+									@elseif($excel->revisions->last()->spatacc >= 30)
+									<span class="m-badge m-badge--warning m-badge--wide text-white">
+									@else
+									<span class="m-badge m-badge--danger m-badge--wide text-white">
+									@endif
+									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%</span>
+								@else
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
+								@endif
+							</td>
 							<td>{{ $excel->place->name }}</td>
 							<td>Q{{ $excel->quarter->quarter }} {{ $excel->quarter->year }}</td>
 							<td>{{ $excel->revisions->last() ? $excel->revisions->last()->updated_by->name :'none' }}</td>
 							<td>
-								@if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="View Latest Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a>@endif
+								@if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download the latest revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>@endif
 								<a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
 								<a onclick="addRev({{ $excel->id }})" data-toggle="modal" data-target="#newRevModal" title="Add New Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-add"></i></a>
 							</td>
