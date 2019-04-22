@@ -44,6 +44,8 @@ class RevisionsController extends Controller
         $revision->filename = $file->getClientOriginalName();
         $revision->excel_id = $request->input('excel_id');
         $revision->attcomp = $attcomp;
+        $revision->attacc =0;
+        $revision->spatacc =0;
         $revision->user_id = $request->user()->id;
 
         $excel = Excels::find($revision->excel_id);
