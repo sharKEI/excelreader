@@ -18,6 +18,8 @@ class CreateRevisionsTable extends Migration
             $table->string('filename');
             $table->string('notes');
             $table->float('attcomp');
+            $table->float('attacc');
+            $table->float('spatacc');
             $table->unsignedBigInteger('excel_id');
             $table->foreign('excel_id')->references('id')->on('excels');
             $table->unsignedBigInteger('user_id');

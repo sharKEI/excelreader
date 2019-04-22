@@ -22,7 +22,7 @@ class RevisionsController extends Controller
 
         $path = $file->getPathName();
         try{
-            $datas = Excel::selectSheets('Output')->load($path)->get(array('check'));
+            $datas = Excel::selectSheets()->load($path)->get(array('check'));
             $fail = 0;
             $pass = 0;
             //array_change_key_case($datas,CASE_LOWER);
@@ -139,6 +139,20 @@ class RevisionsController extends Controller
         //     break;
         // }
 
+    }
+
+    public function update(Request $request, $id)
+    {
+        //Update an Attribute Accuracy
+        $name = $request->input('attacc');
+        $revision = Revisions::find($id);
+        $revision->attacc = $attacc;
+        $revision->user_id = $request->user()->id;
+        if($object->save())
+            $flashmsg = ['success', "Object '$name' have successfully been changed!"];
+        else
+            $flashmsg = ['error', "An error has occured."];
+        return redirect(route('object.index'))->with($flashmsg[0], $flashmsg[1]);
     }
 
 }

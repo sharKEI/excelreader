@@ -68,18 +68,38 @@ function modalMap(obj){
     mapUser.innerHTML = 'Uploaded by: ' + obj.querySelector('#passUser').value;
 }
 
-    $(document).ready(function() {
+  $(document).ready(function() {
 
-      $(".btn-success").click(function(){
-          var html = $(".clone").html();
-          $(".increment").after(html);
-      });
-
-      $("body").on("click",".btn-danger",function(){
-          $(this).parents(".control-group").remove();
-      });
-
+    $(".btn-success").click(function(){
+        var html = $(".clone").html();
+        $(".increment").after(html);
     });
+
+    $("body").on("click",".btn-danger",function(){
+        $(this).parents(".control-group").remove();
+    });
+
+    $('.edit-att').click(function(){
+      var form=$(this).next();
+      var name=$(this).text();
+      Swal.fire({
+          title: 'Edit \'' + name + '\'.',
+          input: 'number',
+          inputValue: name,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            return !value && 'Please enter some value!'
+          }
+      }).then((result) => {
+          if (result.value && name != result.value) {
+              form.name.value = result.value;
+              form.submit();
+          }
+      })
+    })
+
+  });
+
 
 
 // function apiExcel(id){
