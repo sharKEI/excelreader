@@ -141,7 +141,7 @@
 								@if($excel->revisions->last()->attcomp >= 80)
 								<span class="m-badge m-badge--success m-badge--wide text-white">
 								@elseif($excel->revisions->last()->attcomp >= 50)
-								<span class="m-badge m-badge--info m-badge--wide text-white edit-att">
+								<span class="m-badge m-badge--info m-badge--wide text-white">
 								@elseif($excel->revisions->last()->attcomp >= 30)
 								<span class="m-badge m-badge--warning m-badge--wide text-white">
 								@else
