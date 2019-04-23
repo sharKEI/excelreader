@@ -80,8 +80,9 @@ function modalMap(obj){
     });
 
     $('.edit-att').click(function(){
-      var form=$(this).next();
+      var form=$(this).next().children();
       var name=$(this).text();
+      console.log(form)
       Swal.fire({
           title: 'Edit \'' + name + '\'.',
           input: 'number',
@@ -91,12 +92,34 @@ function modalMap(obj){
             return !value && 'Please enter some value!'
           }
       }).then((result) => {
+        console.log(result.value)
           if (result.value && name != result.value) {
-              form.name.value = result.value;
+              // form.attacc.value = result.value;
+              form.children('.percentage').val(result.value)
               form.submit();
           }
       })
     })
+
+    // $('.edit-att').hover(function(){
+    //   $(this).css('cursor', 'pointer')
+    //   $(this).css('box-shadow', '10px 10px 5px grey')
+    // });
+    $(".edit-att").mouseenter(function() {
+      new Tooltip($(this), {
+        placement: 'top', // or bottom, left, right, and variations
+        title: "Top"
+      });
+      $(this).css('cursor', 'pointer')
+      $(this).css("border", "1.5px solid #000000");
+      $(this).css("box-shadow", "5px 5px 5px #555");
+
+
+    }).mouseleave(function(){
+      $(this).css("box-shadow", "0px 0px 0px #555");
+      $(this).css("border", "0px solid #8a4419");
+    });
+
 
   });
 

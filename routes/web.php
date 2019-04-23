@@ -24,6 +24,8 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
 
     Route::get('/revision/show/{user_id}', 'RevisionsController@show')->name('revision.show');
 
+    Route::put('/revision/{id}', 'RevisionsController@update')->name('revision.update');
+
     Route::get('/user/profile/', 'UsersController@profile')->name('user.profile');
 
     Route::post('/user/chgpass/', 'UsersController@chgpass')->name('user.chgpass');
