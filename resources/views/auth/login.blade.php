@@ -82,7 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="m-login__wrapper">
 
 						<div class="m-login__logo">
-							<a href="#">
+							<a href="{{ route('home')}}">
 							<img src="{{url('./assets/app/media/img/logos/insight.png')}}">
 							</a>
 						</div>
