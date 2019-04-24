@@ -86,10 +86,19 @@ function modalMap(obj){
       Swal.fire({
           title: 'Edit \'' + name + '\'.',
           input: 'number',
+          inputAttributes: {
+            max: 100,
+            min: 0
+          },
           inputValue: name,
           showCancelButton: true,
           inputValidator: (value) => {
-            return !value && 'Please enter some value!'
+            // return !value && 'Please enter some value!'
+            if(!value)
+              return 'Please enter some value!'
+
+            if(value<0||value>100)
+              return 'Must between 0-100'
           }
       }).then((result) => {
         console.log(result.value)
