@@ -146,13 +146,17 @@ class RevisionsController extends Controller
     public function update(Request $request, $id)
     {
         //Update an Attribute Accuracy
+        // if($request->input('attacc')||$request->input('spatacc')){
+        //   $flashmsg = ['error', "Cannot enter the value '0'."];
+        // }
+
         $revision = Revisions::find($id);
-        if($request->input('attacc')){
-          $revision->attacc= $request->input('attacc');
+        if($request->input('attacc') != null){
+          $revision->attacc= (int)$request->input('attacc');
           $valupdate=$revision->attacc;
         }
         else {
-          $revision->spatacc= $request->input('spatacc');
+          $revision->spatacc= (int)$request->input('spatacc');
           $valupdate=$revision->spatacc;
         }
         $revision->user_id = $request->user()->id;
