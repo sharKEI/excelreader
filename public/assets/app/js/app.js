@@ -98,7 +98,7 @@ function modalMap(obj){
               return 'Please enter some value!'
 
             if(value<0||value>100)
-              return 'Must between 0-100'
+              return 'Must be between 0-100'
           }
       }).then((result) => {
         console.log(result.value)
