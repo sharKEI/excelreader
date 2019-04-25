@@ -77,7 +77,7 @@
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                                     <button title="Unassign Admin" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill">{{ 'Yes' }}</button>
                                     {{ Form::close() }}
-                                    @else 
+                                    @else
                                     {{ Form::open(['method' => 'PUT', 'route' => ['users.update', $user->id]]) }}
                                     <input type="hidden" name="type" value="admin">
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -85,14 +85,14 @@
                                     {{ Form::close() }}
                                     @endif
                                 </td>
-                                <td>    
-                                    @if($user->active) 
+                                <td>
+                                    @if($user->active)
                                     {{ Form::open(['method' => 'PUT', 'route' => ['users.update', $user->id]]) }}
                                     <input type="hidden" name="type" value="activate">
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
                                     <button title="Deactivate" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill">{{ 'Yes' }}</button>
                                     {{ Form::close() }}
-                                    @else 
+                                    @else
                                     {{ Form::open(['method' => 'PUT', 'route' => ['users.update', $user->id]]) }}
                                     <input type="hidden" name="type" value="activate">
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -116,6 +116,50 @@
 
         </div>
 
+    </div>
+</div>
+
+<!-- Modal Add New User -->
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newExcelModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+						{{ Form::open(['route' => ['user.adduser'], 'class' => 'm-login__form m-form']) }}
+							<div class="modal-body">
+								<input class="form-control m-input" type="text" placeholder="Name" name="name">
+							</div>
+							<div class="modal-body">
+								<input class="form-control m-input" type="text" placeholder="Staff ID" name="staff_id">
+							</div>
+							<div class="modal-body">
+								<input class="form-control m-input" type="email" placeholder="Email Address" name="email">
+							</div>
+							<div class="modal-body">
+								<input class="form-control m-input" type="password" placeholder="Password" name="password">
+							</div>
+							<div class="modal-body">
+								<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Confirm Password" name="password_confirmation">
+							</div>
+							<!-- <div class="row form-group m-form__group m-login__form-sub">
+								<div class="col m--align-left">
+									<label class="m-checkbox m-checkbox--focus">
+									<input type="checkbox" name="agree"> I Agree the <a href="#" class="m-link m-link--focus">terms and conditions</a>.
+									<span></span>
+									</label>
+									<span class="m-form__help"></span>
+								</div>
+							</div> -->
+							<div class="modal-footer">
+								<input type="submit"class="btn btn-primary">
+								<button id="m_login_signup_cancel" class="btn btn-secondary">Cancel</button>
+							</div>
+						{{ Form::close() }}
+        </div>
     </div>
 </div>
 

@@ -79,7 +79,9 @@ function modalMap(obj){
         $(this).parents(".control-group").remove();
     });
 
-    $('.edit-att').click(function(){
+    $('.edit-att').click(function(event){
+      // event.preventDefault();
+      // event.stopPropagation();
       var form=$(this).next().children();
       var name=$(this).text();
       console.log(form)

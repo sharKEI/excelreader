@@ -32,6 +32,8 @@ Route::middleware(['auth', 'App\Http\Middleware\CustomAuth'])->group(function(){
 
     Route::post('/user/update/', 'UsersController@updateprofile')->name('user.update');
 
+    Route::post('/user/adduser', 'UsersController@adduser')->name('user.adduser');
+
     Route::resource('/excel', 'ExcelsController')->only('show');
 
     Route::resource('/pdf', 'FileController');
