@@ -58,7 +58,7 @@ class RevisionsController extends Controller
             $revision->save();
         }
         catch(\Exception $e){
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
+            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.(1)$e"];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
@@ -69,7 +69,7 @@ class RevisionsController extends Controller
         }
         catch(\Exception $e){
             $revision->delete();
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
+            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.$e"];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
