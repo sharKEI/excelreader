@@ -169,7 +169,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         try{
-            $user = Users::find($id);
+            $user = User::find($id);
             $user->delete();
             $flashmsg = ['success', "User successfully deleted."];
             return redirect(route('users.index'))->with($flashmsg[0], $flashmsg[1]);
@@ -178,5 +178,26 @@ class UsersController extends Controller
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
             return redirect(route('users.index'))->with($flashmsg[0], $flashmsg[1]);
         }
+    }
+
+    public function adduser(Request $request)
+    {
+      $this->validate($request, array(
+          'name' => 'required',
+          'staff_id' => 'required',
+          'email' => 'required',
+          'password' => 'required',
+      ));
+
+      User::create([
+          'name' => $request->input('name'),
+          'staff_id' => $request->input('staff_id'),
+          'email' => $request->input('email'),
+          'password' => Hash::make($request->input('password')),
+          'admin' => 0,
+          'active' => 0,
+      ]);
+
+      return redirect()->back();
     }
 }
