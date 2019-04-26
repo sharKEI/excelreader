@@ -163,7 +163,7 @@ class RevisionsController extends Controller
         }
         $revision->user_id = $request->user()->id;
         if($revision->save())
-            $flashmsg = ['success', "Value '$valupdate' have successfully been changed!"];
+            $flashmsg = ['success', "Value '$valupdate' have successfully been added!"];
         else
             $flashmsg = ['error', "An error has occured."];
         return redirect()->back()->with($flashmsg[0], $flashmsg[1]);

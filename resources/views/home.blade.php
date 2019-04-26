@@ -138,11 +138,9 @@
 							<td>{{ $excel->object->name }}</td>
 							<td>
 							@if(!empty($excel->revisions->last()))
-								@if($excel->revisions->last()->attcomp >= 80)
+								@if($excel->revisions->last()->attcomp >= 95)
 								<span class="m-badge m-badge--success m-badge--wide text-white">
-								@elseif($excel->revisions->last()->attcomp >= 50)
-								<span class="m-badge m-badge--info m-badge--wide text-white">
-								@elseif($excel->revisions->last()->attcomp >= 30)
+								@elseif($excel->revisions->last()->attcomp >= 51)
 								<span class="m-badge m-badge--warning m-badge--wide text-white">
 								@else
 								<span class="m-badge m-badge--danger m-badge--wide text-white">
@@ -154,11 +152,9 @@
 							</td>
 							<td>
 								@if(!empty($excel->revisions->last()))
-									@if($excel->revisions->last()->attacc >= 80)
+									@if($excel->revisions->last()->attacc >= 95)
 									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
-									@elseif($excel->revisions->last()->attacc >= 50)
-									<span title="Click to edit" class="m-badge m-badge--info m-badge--wide text-white edit-att">
-									@elseif($excel->revisions->last()->attacc >= 30)
+									@elseif($excel->revisions->last()->attacc >= 51)
 									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
 									@else
 									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
@@ -175,11 +171,9 @@
 							</td>
 							<td>
 								@if(!empty($excel->revisions->last()))
-									@if($excel->revisions->last()->spatacc >= 80)
+									@if($excel->revisions->last()->spatacc >= 95)
 									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
-									@elseif($excel->revisions->last()->spatacc >= 50)
-									<span title="Click to edit" class="m-badge m-badge--info m-badge--wide text-white edit-att">
-									@elseif($excel->revisions->last()->spatacc >= 30)
+									@elseif($excel->revisions->last()->spatacc >= 51)
 									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
 									@else
 									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
