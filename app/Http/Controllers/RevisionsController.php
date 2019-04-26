@@ -36,7 +36,7 @@ class RevisionsController extends Controller
         }
         catch (\Exception $e){
             $flashmsg = ['error', "Wrong excel formatting."];
-            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+            // return redirect($route)->with($flashmsg[0], $flashmsg[1]);
         }
 
         $revision = new Revisions();
@@ -58,19 +58,19 @@ class RevisionsController extends Controller
             $revision->save();
         }
         catch(\Exception $e){
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.(1)$e"];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
+            // return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
         try{
-            $file->move($destinationPath ,$revision->id.' '.$revision->filename);
+            $file->move(urlencode($destinationPath) ,urlencode($revision->id.' '.$revision->filename));
             $flashmsg = ['success', "New revision created. Excel successfully uploaded."];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
             $revision->delete();
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.$e"];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
+            // return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
     }
@@ -86,6 +86,7 @@ class RevisionsController extends Controller
 		if(!file_exists(public_path().$path)){ // file does not exist
 			die('file not found');
 		} else {
+// <<<<<<< HEAD
 			// copy(public_path().$path, public_path().'/storage/'.$filename);
 			header("Cache-Control: public");
 			header("Content-Description: File Transfer");
@@ -96,6 +97,20 @@ class RevisionsController extends Controller
 			// read the file from disk
 			readfile(public_path().$path);
 			// header("Location: ".url('/').'/storage/'.$filename);
+// =======
+			// copy(public_path().$path, public_path().'/storage/'.$filename);
+			// header("Cache-Control: public");
+			// header("Content-Description: File Transfer");
+			// header("Content-Disposition: attachment; filename=$revision->filename");
+			// header("Content-Type: application/zip");
+			// header("Content-Transfer-Encoding: binary");
+
+			// read the file from disk
+			// readfile(public_path().'/storage/'.$filename);
+      // echo url('/').$path;
+			// header("Location: ".url('/').$path);
+      // return redirect(url('/').$path);
+// >>>>>>> 53691f27ff1cbbc38f12589d28530d371e2d71f7
 			//unlink(public_path().'/storage/'.$filename);
 		}
 
@@ -161,7 +176,7 @@ class RevisionsController extends Controller
         }
         $revision->user_id = $request->user()->id;
         if($revision->save())
-            $flashmsg = ['success', "Value '$valupdate' have successfully been changed!"];
+            $flashmsg = ['success', "Value '$valupdate' have successfully been added!"];
         else
             $flashmsg = ['error', "An error has occured."];
         return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
