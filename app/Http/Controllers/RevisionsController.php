@@ -36,7 +36,7 @@ class RevisionsController extends Controller
         }
         catch (\Exception $e){
             $flashmsg = ['error', "Wrong excel formatting."];
-            // return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
         }
 
         $revision = new Revisions();
