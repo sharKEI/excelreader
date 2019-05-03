@@ -69,7 +69,7 @@ class RevisionsController extends Controller
         }
         catch(\Exception $e){
             $revision->delete();
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.(1)"];
+            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.[Upload]"];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 

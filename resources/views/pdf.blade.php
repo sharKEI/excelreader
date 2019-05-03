@@ -108,7 +108,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {{ Form::open(array('route' => ['pdf.store'], 'class' => 'm-form','enctype' => 'multipart/form-data')) }}
+            {{ Form::open(array('files'=>TRUE,'route' => ['pdf.store'], 'class' => 'm-form','enctype' => 'multipart/form-data')) }}
             <div class="modal-body">
 
 							<div class="form-group m-form__group">

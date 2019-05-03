@@ -68,8 +68,8 @@ class FileController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-          'filename'=>'required',
-          'filename.*'=>'mimes:pdf'
+          'filename'=>'required|mimes:pdf',
+          'name'=>'required',
         ]);
 
         $filename = $request->file('filename');
@@ -81,6 +81,10 @@ class FileController extends Controller
         $quarter = 'Q'.$file->quarter->quarter.' '.$file->quarter->year;
         $destinationPath = "storage/uploads/reports/$quarter";
 
+        // /if(Input::hasFile('filename')){
+        //   if(Input::file('filename')->move('storage/uploads/reports/$quarter'))
+        // }
+
         try{
             $file->save();
         }
@@ -91,7 +95,7 @@ class FileController extends Controller
 
         try{
             $filename->move($destinationPath ,$file->id.' '.$file->filename);
-            $flashmsg = ['success', "New file created. Excel successfully uploaded."];
+            $flashmsg = ['success', "New file added. PDF successfully uploaded."];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
