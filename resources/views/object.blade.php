@@ -31,14 +31,14 @@
                         <div class="form-group m-form__group row align-items-center">
                             <div class="col-md-8">
                                 {{ Form::open(array('route' => ['object.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
-        
+
                                     <div class="input-group">
-                                        <input type="text" name="name" class="form-control" placeholder="New Object Name..." required>
+                                        <input type="text" name="name" class="form-control" placeholder="New Object Name..." pattern="[A-Z][a-z]" title="Any reserved characters are not allowed" required>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Add Object</button>
                                         </div>
                                     </div>
-                        
+
                                 {{  Form::close() }} {{-- This is a form closing tag </form> --}}
                             </div>
                             <div class="col-md-4">
@@ -90,7 +90,7 @@
                                         {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['object.destroy', $object->id]]) }}
                                             <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
                                         {{ Form::close() }}
-                                    </div>  
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
