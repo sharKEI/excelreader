@@ -25,6 +25,26 @@
 						<div class="col-xl-8 order-2 order-xl-1">
 							<form action="" method="GET">
 							<div class="form-group m-form__group row align-items-center">
+
+								<!-- <div class="col-md-4">
+									<div class="m-form__group m-form__group--inline">
+										<div class="m-form__label">
+											<label class="m-label m-label--single">Quarter:</label>
+										</div>
+										<div class="m-form__control">
+											<select class="form-control" name="quart">
+												<option value="0">All</option>
+												@foreach ($quarters as $quarter)
+												<option value="{{ $quarter->id }}"
+														{{ app('request')->input('quart') == $quarter->id ? 'selected' : '' }}>
+													Q{{ $quarter->quarter }} {{ $quarter->year }}
+												</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+								</div> -->
+
 								<div class="col-md-4">
 									<div class="m-form__group m-form__group--inline">
 										<div class="m-form__label">
@@ -136,20 +156,27 @@
 						<tr>
 							<td>{{ $key+1 }}</td>
 							<td>{{ $excel->object->name }}</td>
+
 							<td>
 							@if(!empty($excel->revisions->last()))
 								@if($excel->revisions->last()->attcomp >= 95)
-								<span class="m-badge m-badge--success m-badge--wide text-white">
+								<span class="m-badge m-badge--success m-badge--wide text-white edit-att">
 								@elseif($excel->revisions->last()->attcomp >= 51)
-								<span class="m-badge m-badge--warning m-badge--wide text-white">
+								<span class="m-badge m-badge--warning m-badge--wide text-white edit-att">
 								@else
-								<span class="m-badge m-badge--danger m-badge--wide text-white">
+								<span class="m-badge m-badge--danger m-badge--wide text-white edit-att">
 								@endif
 								{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%</span>
 							@else
 								<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 							@endif
+								<span>
+									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
+											<input class="percentage" type="hidden" name="attacc" value="">
+									{{ Form::close() }}
+								</span>
 							</td>
+
 							<td>
 								@if(!empty($excel->revisions->last()))
 									@if($excel->revisions->last()->attacc >= 95)
