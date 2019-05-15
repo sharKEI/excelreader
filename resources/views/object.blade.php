@@ -33,7 +33,7 @@
                                 {{ Form::open(array('route' => ['object.store'], 'class' => 'm-form')) }} {{-- This is a form opening tag <form> --}}
 
                                     <div class="input-group">
-                                        <input type="text" name="name" class="form-control" placeholder="New Object Name..." pattern="[A-Z][a-z]" title="Any reserved characters are not allowed" required>
+                                        <input type="text" name="name" class="form-control" placeholder="New Object Name..." required>
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="submit">Add Object</button>
                                         </div>

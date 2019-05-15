@@ -15,11 +15,11 @@ class CreateRevisionsTable extends Migration
     {
         Schema::create('revisions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('filename');
+            $table->string('filename')->nullable();
             $table->string('notes');
-            $table->float('attcomp');
-            $table->float('attacc');
-            $table->float('spatacc');
+            $table->float('attcomp')->nullable();
+            $table->float('attacc')->nullable();
+            $table->float('spatacc')->nullable();
             $table->unsignedBigInteger('excel_id');
             $table->foreign('excel_id')->references('id')->on('excels');
             $table->unsignedBigInteger('user_id');

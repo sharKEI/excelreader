@@ -29,4 +29,14 @@ class Excels extends Model
     public function updated_by(){
         return $this->belongsTo('App\User' , 'user_id');
     }
+
+    // this is a recommended way to declare event handlers
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($excel) { // before delete() method call this
+                $excel->revisions()->delete();
+                // do the rest of the cleanup...
+        });
+    }
 }

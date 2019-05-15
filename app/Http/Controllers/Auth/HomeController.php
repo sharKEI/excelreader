@@ -37,9 +37,9 @@ class HomeController extends Controller
           if($_GET['quart']) array_push($where, ['quarter_id', '=', $_GET['quart']]);
         }
         $data['excels'] = Excels::where($where)->get();
-        $data['quarters'] = Quarters::all();
-        $data['objects'] = Objects::all();
-        $data['places'] = Places::all();
+        $data['quarters'] = Quarters::all()->sortBy('quarter')->sortBy('year');
+        $data['objects'] = Objects::all()->sortBy('name');
+        $data['places'] = Places::all()->sortBy('name');
         return view('home', $data);
     }
 

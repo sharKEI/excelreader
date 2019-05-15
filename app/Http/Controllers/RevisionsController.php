@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Revisions;
 use App\Excels;
@@ -18,58 +19,62 @@ class RevisionsController extends Controller
         ));
 
         $route = route('excel.show', ['id' => $request->input('excel_id')]);
-        $file = $request->file('xlfile');
-
-        $path = $file->getPathName();
-        try{
-            $datas = Excel::selectSheets()->load($path)->get(array('check'));
-            $fail = 0;
-            $pass = 0;
-            //array_change_key_case($datas,CASE_LOWER);
-            foreach ($datas as $data) {
-                if ($data['check'] == 'Fail')
-                    $fail += 1;
-                if ($data['check'] == 'Pass')
-                    $pass += 1;
-            }
-            $attcomp = $pass / ($fail + $pass) * 100;
-        }
-        catch (\Exception $e){
-            $flashmsg = ['error', "Wrong excel formatting."];
-            return redirect($route)->with($flashmsg[0], $flashmsg[1]);
-        }
 
         $revision = new Revisions();
-        $revision->notes = $request->input('notes');
-        $revision->filename = $file->getClientOriginalName();
-        $revision->excel_id = $request->input('excel_id');
-        $revision->attcomp = $attcomp;
-        $revision->attacc =0;
-        $revision->spatacc =0;
-        $revision->user_id = $request->user()->id;
 
-        $excel = Excels::find($revision->excel_id);
-        $place = $excel->place->name;
-        $quarter = 'Q'.$excel->quarter->quarter.' '.$excel->quarter->year;
-        $object = $excel->object->name;
-        $destinationPath = "storage/uploads/$quarter/$place/$object";
+        if ($request->file('xlfile') != null){
+            $file = $request->file('xlfile');
+            $excel = Excels::find($request->input('excel_id'));
+            $place = $excel->place->name;
+            $quarter = 'Q'.$excel->quarter->quarter.' '.$excel->quarter->year;
+            $object = $excel->object->name;
+            $id = $excel->id;
+            $created_at = explode(' ', $excel->created_at)[0];
+            $destinationPath = "uploads/$quarter/$place/$object/$id $created_at/";
+            $newFileName = uniqid().' '.$file->getClientOriginalName();
+            //try{
+                $uploadedPath = Storage::disk('local')->putFileAs($destinationPath, $file, $newFileName);
+                $revision->filename = $newFileName;
+            // }
+            // catch(\Exception $e){
+            //     $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.[Upload]"];
+            //     return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            // }
+        }
+
+        // $path = $file->getPathName();
+        // try{
+        //     $datas = Excel::selectSheets()->load($path)->get(array('check'));
+        //     $fail = 0;
+        //     $pass = 0;
+        //     //array_change_key_case($datas,CASE_LOWER);
+        //     foreach ($datas as $data) {
+        //         if ($data['check'] == 'Fail')
+        //             $fail += 1;
+        //         if ($data['check'] == 'Pass')
+        //             $pass += 1;
+        //     }
+        //     $attcomp = $pass / ($fail + $pass) * 100;
+        // }
+        // catch (\Exception $e){
+        //     $flashmsg = ['error', "Wrong excel formatting."];
+        //     return redirect($route)->with($flashmsg[0], $flashmsg[1]);
+        // }
+
+        $revision->notes = $request->input('notes');
+        $revision->excel_id = $request->input('excel_id');
+        $revision->attcomp = null;
+        $revision->attacc = null;
+        $revision->spatacc = null;
+        $revision->user_id = $request->user()->id;
 
         try{
             $revision->save();
+            $flashmsg = ['success', "New revision created. Excel successfully uploaded."];
+            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
         catch(\Exception $e){
             $flashmsg = ['error', "An error has occured. If problem persist, contact the admin."];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
-        }
-
-        try{
-			$file->move($destinationPath ,$revision->id.' '.$revision->filename);
-			$flashmsg = ['success', "New revision created. Excel successfully uploaded."];
-            return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
-        }
-        catch(\Exception $e){
-            $revision->delete();
-            $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.[Upload]"];
             return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
         }
 
@@ -80,10 +85,13 @@ class RevisionsController extends Controller
         $object = $revision->excel->object->name;
         $quarter = 'Q'.$revision->excel->quarter->quarter.' '.$revision->excel->quarter->year;
         $place = $revision->excel->place->name;
-        $filename = $revision->id.' '.$revision->filename;
-        $path = "/storage/uploads/$quarter/$place/$object/$filename";
+        $filename = $revision->filename;
+        $id = $revision->excel->id;
+        $created_at = explode(' ', $revision->excel->created_at)[0];
+        $path = "app/uploads/$quarter/$place/$object/$id $created_at/$filename";
+        //echo storage_path($path);
 
-		if(!file_exists(public_path().$path)){ // file does not exist
+		if(!file_exists(storage_path($path))){ // file does not exist
 			die('file not found');
 		} else {
 // <<<<<<< HEAD
@@ -95,7 +103,7 @@ class RevisionsController extends Controller
 			header("Content-Transfer-Encoding: binary");
 
 			// read the file from disk
-			readfile(public_path().$path);
+			readfile(storage_path($path));
 			// header("Location: ".url('/').'/storage/'.$filename);
 // =======
 			// copy(public_path().$path, public_path().'/storage/'.$filename);
@@ -170,6 +178,10 @@ class RevisionsController extends Controller
           $revision->attacc= (int)$request->input('attacc');
           $valupdate=$revision->attacc;
         }
+        else if($request->input('attcomp') != null){
+            $revision->attcomp= (int)$request->input('attcomp');
+            $valupdate=$revision->attcomp;
+          }
         else {
           $revision->spatacc= (int)$request->input('spatacc');
           $valupdate=$revision->spatacc;

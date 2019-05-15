@@ -147,7 +147,6 @@
 							<th title="Spatial Accuracy - less than 5 m" data-field="SpaAcc">Spatial Accuracy</th>
 							<th title="Area" data-field="area">Area</th>
 							<th title="Quarter Name" data-field="quarter">Quarter</th>
-							<th>Updated By</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -160,68 +159,51 @@
 							<td>
 							@if(!empty($excel->revisions->last()))
 								@if($excel->revisions->last()->attcomp >= 95)
-								<span class="m-badge m-badge--success m-badge--wide text-white edit-att">
+								<span class="m-badge m-badge--success m-badge--wide text-white ">
 								@elseif($excel->revisions->last()->attcomp >= 51)
-								<span class="m-badge m-badge--warning m-badge--wide text-white edit-att">
+								<span class="m-badge m-badge--warning m-badge--wide text-white ">
 								@else
-								<span class="m-badge m-badge--danger m-badge--wide text-white edit-att">
+								<span class="m-badge m-badge--danger m-badge--wide text-white ">
 								@endif
 								{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%</span>
 							@else
 								<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 							@endif
-								<span>
-									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-											<input class="percentage" type="hidden" name="attacc" value="">
-									{{ Form::close() }}
-								</span>
 							</td>
 
 							<td>
 								@if(!empty($excel->revisions->last()))
 									@if($excel->revisions->last()->attacc >= 95)
-									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
 									@elseif($excel->revisions->last()->attacc >= 51)
-									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
 									@else
-									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
 									@endif
 									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%</span>
 								@else
 									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
-									<span style="display:none;">
-										{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-												<input class="percentage" type="hidden" name="attacc" value="">
-										{{ Form::close() }}
-									</span>
 							</td>
 							<td>
 								@if(!empty($excel->revisions->last()))
 									@if($excel->revisions->last()->spatacc >= 95)
-									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
 									@elseif($excel->revisions->last()->spatacc >= 51)
-									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
 									@else
-									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
 									@endif
 									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%</span>
 								@else
 									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
-								<span style="display:none;">
-									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-											<input class="percentage" type="hidden" name="spatacc" value="">
-									{{ Form::close() }}
-								</span>
 							</td>
 							<td>{{ $excel->place->name }}</td>
 							<td>Q{{ $excel->quarter->quarter }} {{ $excel->quarter->year }}</td>
-							<td>{{ $excel->revisions->last() ? $excel->revisions->last()->updated_by->name :'none' }}</td>
 							<td>
 								@if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download the latest revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>@endif
 								<a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
-								<a onclick="addRev({{ $excel->id }})" data-toggle="modal" data-target="#newRevModal" title="Add New Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-add"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -229,41 +211,6 @@
 				</table>
 
 				<!--end: Datatable -->
-			</div>
-		</div>
-	</div>
-
-	<!-- Modal -->
-<div class="modal fade" id="newRevModal" tabindex="-1" role="dialog" aria-labelledby="newRevModal" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Add New Revision</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-                {{ Form::open(array('route' => ['revision.store'], 'class' => 'm-form', 'enctype' => 'multipart/form-data')) }}
-                <input id="excelId" type="hidden" name="excel_id" value="">
-				<div class="modal-body">
-						<div class="form-group m-form__group">
-							<label for="object">Revision Notes</label>
-							<input type="text" name="notes" class="form-control m-input m-input--square">
-						</div>
-
-
-						<div class="form-group m-form__group">
-							<label for="quarter">Upload File</label>
-							<input type="file" name="xlfile" class="form-control m-input m-input--square">
-						</div>
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button class="btn btn-primary" type="submit">Add Revision</button>
-				</div>
-
-				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
