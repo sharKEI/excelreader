@@ -39,87 +39,101 @@
                         <th title="area" data-field="area">Area</th>
                         <th title="quarter" data-field="quarter">Quarter</th>
                         <th>Last Updated By</th>
+                        <th>Last Updated At</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if ($excels)
-                        @foreach ($excels as $key => $excel)
+                        @foreach ($excels as $excel)
                             <tr>
-                                <td>{{ $key+1 }}</td>
+                                <td>{{ $count++ }}</td>
                                 <td>{{ $excel->object->name }}</td>
                                 <td>
                                 @if(!empty($excel->revisions->last()))
-                                    @if($excel->revisions->last()->attcomp >= 95)
-                                    <span class="m-badge m-badge--success m-badge--wide text-white edit-att">
-                                    @elseif($excel->revisions->last()->attcomp >= 51)
-                                    <span class="m-badge m-badge--warning m-badge--wide text-white edit-att">
-                                    @else
-                                    <span class="m-badge m-badge--danger m-badge--wide text-white edit-att">
-                                    @endif
-                                    {{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%</span>
-                                @else
-                                    <span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
-                                @endif
-                                <span>
-									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-											<input class="percentage" type="hidden" name="attcomp" value="">
-									{{ Form::close() }}
-								</span>
+									@if($excel->revisions->last()->attcomp >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attcomp >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attcomp === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($excel->revisions->last()->attcomp === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
+								@else
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
+								@endif
                                 </td>
 
                                 <td>
-                                    @if(!empty($excel->revisions->last()))
-                                        @if($excel->revisions->last()->attacc >= 95)
-                                        <span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
-                                        @elseif($excel->revisions->last()->attacc >= 51)
-                                        <span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
-                                        @else
-                                        <span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
-                                        @endif
-                                        {{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%</span>
-                                    @else
-                                        <span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
-                                    @endif
-                                    <span>
-									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-											<input class="percentage" type="hidden" name="attacc" value="">
-									{{ Form::close() }}
-								    </span>
+								@if(!empty($excel->revisions->last()))
+									@if($excel->revisions->last()->attacc >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attacc >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($excel->revisions->last()->attacc === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
+								@else
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
+								@endif
                                 </td>
                                 <td>
-                                    @if(!empty($excel->revisions->last()))
-                                        @if($excel->revisions->last()->spatacc >= 95)
-                                        <span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white edit-att">
-                                        @elseif($excel->revisions->last()->spatacc >= 51)
-                                        <span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white edit-att">
-                                        @else
-                                        <span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white edit-att">
-                                        @endif
-                                        {{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%</span>
-                                    @else
-                                        <span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
-                                    @endif
-                                    <span>
-									{{ Form::open([ 'method' => 'PUT', 'route' => ['revision.update', $excel->revisions->last()['id']]]) }}
-											<input class="percentage" type="hidden" name="spatacc" value="">
-									{{ Form::close() }}
-								    </span>
+                                @if(!empty($excel->revisions->last()))
+									@if($excel->revisions->last()->spatacc >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->spatacc >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->spatacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($excel->revisions->last()->spatacc === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
+								@else
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
+								@endif
                                 </td>
                                 <td>{{ $excel->place->name }}</td>
                                 <?php $quarter = $excel->quarter->quarter; $year = $excel->quarter->year ?>
-                                <td><div style="display:none;width:0px;height:0px;">{{ $year.$quarter }}</div>{{ "Q$quarter $year" }}</td>
+                                <td><div style="display:none;width:0px;height:0px;"></div><div>{{ "Q$quarter $year" }}</div></td>
                                 <td>{{ $excel->revisions->last() ? $excel->revisions->last()->updated_by->name :'none' }}</td>
+                                <td>{{ $excel->revisions->last() ? $excel->revisions->last()->updated_at : 'none' }}</td>
                                 <td>
                                     <div class="form-inline">
                                         <a onclick="addRev({{ $excel->id }})" data-toggle="modal" data-target="#newRevModal" title="Add New Revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-add"></i></a>
                                         &nbsp;
-                                        @if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download the latest revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>@endif
+                                        @if($excel->revisions->last())
+                                            @if($excel->revisions->last()->filename !== null)
+                                            <a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download latest revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>
+                                            @else
+                                            <button href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Latest revision has no downloadable file" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill" disabled><i class="flaticon-download"></i></button>
+                                            @endif
+                                        @endif
                                         &nbsp;
                                         <a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Old Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
                                     </div>
                                     <div class="form-inline">
-                                        @if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Calculate Attribute" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-interface-1"></i></a>@endif
+                                        @if($excel->revisions->last())<a onclick="modalCalc(this,'{{ json_encode($excel->revisions->last()) }}')" data-toggle="modal" data-target="#calcAttModal" title="Calculate Attribute" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-interface-1"></i></a>@endif
                                         &nbsp;
                                         <button onclick="editExcel({{ $excel->object_id.','.$excel->place_id.','.$excel->quarter_id.','.$excel->id }})" data-toggle="modal" data-target="#editExcelModal" title="Edit" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-edit-1"></i></button>
                                         &nbsp;
@@ -214,7 +228,7 @@
 
 
                     <div class="form-group m-form__group">
-                        <label for="quarter">Upload File</label>
+                        <label for="quarter">Upload File &nbsp;<span class="text-info">*Can leave it empty</span></label>
                         <input type="file" name="xlfile" class="form-control m-input m-input--square">
                     </div>
 
@@ -277,6 +291,92 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button class="btn btn-primary" type="submit">Edit Excel Info</button>
+            </div>
+
+            {{ Form::close() }}
+        </div>
+    </div>
+</div>
+
+<!-- Modal Calc -->
+<div class="modal fade" id="calcAttModal" tabindex="-1" role="dialog" aria-labelledby="calcAttModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Calculate Attribute For</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ Form::open(array('route' => ['revision.update', 0], 'method' => 'PUT', 'class' => 'm-form', 'name' => 'calcForm')) }}
+            <div class="modal-body">
+                <button class="btn btn-default btn-xs" name="quarter" disabled></button>
+                <button class="btn btn-default btn-xs" name="place" disabled></button>
+                <button class="btn btn-default btn-xs" name="object" disabled></button>
+                <input id="revid" type="hidden" name="rev_id" value="">
+                <div class="form-group m-form__group">
+                    <label>
+                    Attribute Completeness &nbsp;
+                    <span id="eattcomp" class="text-danger" style="display:none;">An error has occured!</span>
+                    <span id="sattcomp" class="text-success" style="display:none;">Calculation success!</span>
+                    </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--state m-checkbox--state-success">
+                                    <input class="checkCalc" type="checkbox" name="cattcomp" checked="" title="Unset Attribute">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <input class="form-control m-input m-input--square" type="number" step="0.01" min="0" max="100" name="attcomp">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" onclick="calcAttComp(this)" type="button" title="Automatic Calculation"><i class="fa fa-calculator"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group m-form__group">
+                    <label>Attribute Accuracy</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--state m-checkbox--state-success">
+                                    <input class="checkCalc" type="checkbox" name="cattacc" checked="" title="Unset Attribute">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <input class="form-control m-input m-input--square" type="number" step="0.01" min="0" max="100" name="attacc">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="button" title="Automatic Calculation" disabled><i class="fa fa-calculator"></i></button>
+                        </div>
+                    </div>                
+                </div>
+
+                <div class="form-group m-form__group">
+                    <label>Spatial Accuracy</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--state m-checkbox--state-success">
+                                    <input class="checkCalc" type="checkbox" name="cspatacc" checked="" title="Unset Attribute">
+                                    <span></span>
+                                </label>
+                            </span>
+                        </div>
+                        <input class="form-control m-input m-input--square" type="number" step="0.01" min="0" max="100" name="spatacc">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="button" title="Automatic Calculation" disabled><i class="fa fa-calculator"></i></button>
+                        </div>
+                    </div>                
+                </div>
+                <span class="text-info">*Uncheck to set as NULL (Not Set)</span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Update Attributes</button>
             </div>
 
             {{ Form::close() }}

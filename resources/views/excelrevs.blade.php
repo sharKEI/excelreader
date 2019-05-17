@@ -50,7 +50,9 @@
                         <th title="Updated At" data-field="UA">Updated At</th>
                         {{-- <th title="No" data-field="No">No</th> --}}
                         <th title="Revision Note" data-field="RN">Revision Note</th>
-                        <th title="Attribute Completeness" data-field="AttComp">Att. Completeness</th>
+                        <th title="Attribute Completeness" data-field="AttComp">Attribute Completeness</th>
+                        <th title="Attribute Completeness" data-field="AttComp">Attribute Accuracy</th>
+                        <th title="Attribute Completeness" data-field="AttComp">Spatial Accuracy</th>
                         <th title="Updated By" data-field="UB">Updated By</th>
 
                         <th>Action</th>
@@ -60,31 +62,67 @@
                     @if ($revisions)
                         @foreach ($revisions as $key => $revision)
                             <tr>
-                                {{-- <td>{{ $key+1 }}</td> --}}
-                                <td><b>{{ $revision->updated_at }}@if ($key==0) <span style="background-color:yellow;">(latest)</span> @endif</b></td>
+                                <td><b>{{ $revision->updated_at }}@if ($key==0) <div style="background-color:yellow;">(latest)</div> @endif</b></td>
                                 <td>{{ $revision->notes }}</td>
                                 <td>
-                                    @if ($revision->attcomp >= 80)
-                                    <span class="m-badge m-badge--success m-badge--wide text-white">
-                                    @elseif ($revision->attcomp >= 50)
-                                    <span class="m-badge m-badge--info m-badge--wide text-white">
-                                    @elseif ($revision->attcomp >= 30)
-                                    <span class="m-badge m-badge--warning m-badge--wide text-white">
-                                    @else
-                                    <span class="m-badge m-badge--danger m-badge--wide text-white">
-                                    @endif
-                                    {{ round($revision->attcomp, 2, PHP_ROUND_HALF_UP) }}%
-                                    </span>
+                                    @if($revision->attcomp >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($revision->attcomp >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($revision->attcomp === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($revision->attcomp === NULL)
+									Value Not Set
+									@else
+									{{  round($revision->attcomp, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
+                                </td>
+                                <td>
+									@if($revision->attacc >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($revision->attacc >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($revision->attacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($revision->attacc === NULL)
+									Value Not Set
+									@else
+									{{  round($revision->attacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
+                                </td>
+                                <td>
+									@if($revision->spatacc >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($revision->spatacc >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($revision->spatacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($revision->spatacc === NULL)
+									Value Not Set
+									@else
+									{{  round($revision->spatacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
                                 </td>
                                 <td>{{ $revision->updated_by->name }}</td>
                                 <td>
                                     <div class="form-inline">
-                                        <a href="{{ route('revision.show', ['id' => $revision->id]) }}" title="View Excel" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>
-                                        {{-- <a onclick="apiExcel({{ $revision->id }})" title="View Excel" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-eye"></i></a> --}}
-                                        &nbsp
-                                        {{ Form::open(['onsubmit' => 'delert(this)', 'method' => 'DELETE', 'route' => ['excel.destroy', $excel->id]]) }}
-                                            <button type="submit" title="Delete" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-delete"></i></button>
-                                        {{ Form::close() }}
+                                        @if($revision->filename !== null)
+                                            <a href="{{ route('revision.show', ['id' => $revision->id]) }}" title="Download revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>
+                                        @else
+                                            <button href="{{ route('revision.show', ['id' => $revision->id]) }}" title="Revision has no downloadable file" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill" disabled><i class="flaticon-download"></i></button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

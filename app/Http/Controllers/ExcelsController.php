@@ -24,10 +24,11 @@ class ExcelsController extends Controller
         //Main excel upload form
         $data['title'] = 'Manage Excel';
         $data['subheader'] = ['title' => 'Manage Excels', 'desc' => 'View, Add or Edit Excel(s).'];
-        $data['excels'] = Excels::all();
-        $data['objects'] = Objects::all();
-        $data['places'] = Places::all();
-        $data['quarters'] = Quarters::all();
+        $data['excels'] = Excels::all()->sortBy('object')->sortBy('place')->sortBy('quarter')->sortBy('year');
+        $data['objects'] = Objects::all()->sortBy('name');
+        $data['places'] = Places::all()->sortBy('name');
+        $data['quarters'] = Quarters::all()->sortBy('quarter')->sortBy('year');
+        $data['count'] = 1;
         return view('excel',$data);
     }
 

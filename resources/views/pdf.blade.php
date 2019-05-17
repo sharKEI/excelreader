@@ -34,8 +34,10 @@
 
             <h3 class="m-portlet__head-text">
                 Manage File(s)
-								&nbsp
+				&nbsp
+                @if(Auth::user()['admin'])
                 <button data-toggle="modal" data-target="#newFileModal" class="btn btn-primary">Add New File</button>
+                @endif
             </h3>
 
             {{-- Form validation error --}}

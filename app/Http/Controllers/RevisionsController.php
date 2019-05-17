@@ -14,7 +14,7 @@ class RevisionsController extends Controller
     public function store(Request $request){
         $this->validate($request, array(
             'notes' => 'required',
-            'xlfile' => 'required',
+            'xlfile' => 'mimes:xlsx,xls,csv,ods',
             'excel_id' => 'required',
         ));
 
@@ -32,34 +32,15 @@ class RevisionsController extends Controller
             $created_at = explode(' ', $excel->created_at)[0];
             $destinationPath = "uploads/$quarter/$place/$object/$id $created_at/";
             $newFileName = uniqid().' '.$file->getClientOriginalName();
-            //try{
+            try{
                 $uploadedPath = Storage::disk('local')->putFileAs($destinationPath, $file, $newFileName);
                 $revision->filename = $newFileName;
-            // }
-            // catch(\Exception $e){
-            //     $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.[Upload]"];
-            //     return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
-            // }
+            }
+            catch(\Exception $e){
+                $flashmsg = ['error', "An error has occured. If problem persist, contact the admin.[Upload]"];
+                return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+            }
         }
-
-        // $path = $file->getPathName();
-        // try{
-        //     $datas = Excel::selectSheets()->load($path)->get(array('check'));
-        //     $fail = 0;
-        //     $pass = 0;
-        //     //array_change_key_case($datas,CASE_LOWER);
-        //     foreach ($datas as $data) {
-        //         if ($data['check'] == 'Fail')
-        //             $fail += 1;
-        //         if ($data['check'] == 'Pass')
-        //             $pass += 1;
-        //     }
-        //     $attcomp = $pass / ($fail + $pass) * 100;
-        // }
-        // catch (\Exception $e){
-        //     $flashmsg = ['error', "Wrong excel formatting."];
-        //     return redirect($route)->with($flashmsg[0], $flashmsg[1]);
-        // }
 
         $revision->notes = $request->input('notes');
         $revision->excel_id = $request->input('excel_id');
@@ -172,26 +153,53 @@ class RevisionsController extends Controller
         // if($request->input('attacc')||$request->input('spatacc')){
         //   $flashmsg = ['error', "Cannot enter the value '0'."];
         // }
+        $revision = Revisions::find($request->input('rev_id'));
+        $revision->attcomp = null;
+        $revision->attacc = null;
+        $revision->spatacc = null;
+        if($request->input('cattcomp')){
+            ($request->input('attcomp') !== null) ? $revision->attcomp = (float)$request->input('attcomp') : $revision->attcomp = 0;
+        }
+        if($request->input('cattacc')){
+            ($request->input('attacc') !== null) ? $revision->attacc = (float)$request->input('attacc') : $revision->attacc = 0;
+        }
+        if($request->input('cspatacc')){
+            ($request->input('spatacc') !== null) ? $revision->spatacc = (float)$request->input('spatacc') : $revision->spatacc = 0;
+        }
 
-        $revision = Revisions::find($id);
-        if($request->input('attacc') != null){
-          $revision->attacc= (int)$request->input('attacc');
-          $valupdate=$revision->attacc;
-        }
-        else if($request->input('attcomp') != null){
-            $revision->attcomp= (int)$request->input('attcomp');
-            $valupdate=$revision->attcomp;
-          }
-        else {
-          $revision->spatacc= (int)$request->input('spatacc');
-          $valupdate=$revision->spatacc;
-        }
         $revision->user_id = $request->user()->id;
         if($revision->save())
-            $flashmsg = ['success', "Value '$valupdate' have successfully been added!"];
+            $flashmsg = ['success', "Attributes have successfully been updated!"];
         else
-            $flashmsg = ['error', "An error has occured."];
+            $flashmsg = ['error', "An error has occured. Please contact the admin."];
         return redirect()->back()->with($flashmsg[0], $flashmsg[1]);
+    }
+
+    function apiCalcAttComp($id){
+
+        $revision = Revisions::find($id);
+        $object = $revision->excel->object->name;
+        $quarter = 'Q'.$revision->excel->quarter->quarter.' '.$revision->excel->quarter->year;
+        $place = $revision->excel->place->name;
+        $filename = $revision->filename;
+        $id = $revision->excel->id;
+        $created_at = explode(' ', $revision->excel->created_at)[0];
+        $path = "app/uploads/$quarter/$place/$object/$id $created_at/$filename";
+        $path = storage_path($path);
+
+        $datas = Excel::selectSheets()->load($path)->get(array('check'));
+        $fail = 0;
+        $pass = 0;
+        foreach ($datas as $data) {
+            if ($data['check'] == 'Fail')
+                $fail += 1;
+            if ($data['check'] == 'Pass')
+                $pass += 1;
+        }
+        $attcomp = $pass / ($fail + $pass) * 100;
+        $json['status'] = 1;
+        $json['result'] = $attcomp;
+        return json_encode($json);
     }
 
 }

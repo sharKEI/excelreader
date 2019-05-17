@@ -80,9 +80,9 @@
                 </thead>
                 <tbody>
                     @if ($quarters)
-                        @foreach ($quarters as $key => $quarter)
+                        @foreach ($quarters as $quarter)
                             <tr>
-                                <td>{{ $key+1 }}</td>
+                                <td>{{ $count++ }}</td>
                                 <td>Q{{ $quarter['quarter'] }}</td>
                                 <td>{{ $quarter['year'] }}</td>
                                 <td>{{ sizeof($quarter->excels) }}</td>

@@ -18,7 +18,8 @@ class QuartersController extends Controller
         $data['title'] = 'Manage Quarters';
         $data['subheader'] = ['title' => 'Manage Quarters', 'desc' => 'View, Add or Edit Quarter(s).'];
 
-        $data['quarters'] = Quarters::all();
+        $data['quarters'] = Quarters::all()->sortBy('quarter')->sortBy('year');
+        $data['count'] = 1;
 
         return view('quarter', $data);
     }

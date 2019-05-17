@@ -158,43 +158,64 @@
 
 							<td>
 							@if(!empty($excel->revisions->last()))
-								@if($excel->revisions->last()->attcomp >= 95)
-								<span class="m-badge m-badge--success m-badge--wide text-white ">
-								@elseif($excel->revisions->last()->attcomp >= 51)
-								<span class="m-badge m-badge--warning m-badge--wide text-white ">
+									@if($excel->revisions->last()->attcomp >= 90)
+									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attcomp >= 50)
+									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attcomp === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
+									@else
+									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
+									@endif
+									@if($excel->revisions->last()->attcomp === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
 								@else
-								<span class="m-badge m-badge--danger m-badge--wide text-white ">
+									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
-								{{  round($excel->revisions->last()->attcomp, 2, PHP_ROUND_HALF_UP) }}%</span>
-							@else
-								<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
-							@endif
 							</td>
 
 							<td>
 								@if(!empty($excel->revisions->last()))
-									@if($excel->revisions->last()->attacc >= 95)
+									@if($excel->revisions->last()->attacc >= 90)
 									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
-									@elseif($excel->revisions->last()->attacc >= 51)
+									@elseif($excel->revisions->last()->attacc >= 50)
 									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->attacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
 									@else
 									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
 									@endif
-									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%</span>
+									@if($excel->revisions->last()->attacc === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->attacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
 								@else
 									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
 							</td>
 							<td>
-								@if(!empty($excel->revisions->last()))
-									@if($excel->revisions->last()->spatacc >= 95)
+							@if(!empty($excel->revisions->last()))
+									@if($excel->revisions->last()->spatacc >= 90)
 									<span title="Click to edit" class="m-badge m-badge--success m-badge--wide text-white ">
-									@elseif($excel->revisions->last()->spatacc >= 51)
+									@elseif($excel->revisions->last()->spatacc >= 50)
 									<span title="Click to edit" class="m-badge m-badge--warning m-badge--wide text-white ">
+									@elseif($excel->revisions->last()->spatacc === NULL)
+									<span title="Click to edit" class="m-badge m-badge--metal m-badge--wide text-white ">
 									@else
 									<span title="Click to edit" class="m-badge m-badge--danger m-badge--wide text-white ">
 									@endif
-									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%</span>
+									@if($excel->revisions->last()->spatacc === NULL)
+									Value Not Set
+									@else
+									{{  round($excel->revisions->last()->spatacc, 2, PHP_ROUND_HALF_UP) }}%
+									@endif
+									</span>
 								@else
 									<span class="m-badge m-badge--metal m-badge--wide text-white">None</span>
 								@endif
@@ -202,7 +223,13 @@
 							<td>{{ $excel->place->name }}</td>
 							<td>Q{{ $excel->quarter->quarter }} {{ $excel->quarter->year }}</td>
 							<td>
-								@if($excel->revisions->last())<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download the latest revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>@endif
+								@if($excel->revisions->last())
+									@if($excel->revisions->last()->filename !== null)
+									<a href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Download latest revision" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-download"></i></a>
+									@else
+									<button href="{{ route('revision.show', ['id' => $excel->revisions->last()->id]) }}" title="Latest revision has no downloadable file" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill" disabled><i class="flaticon-download"></i></button>
+									@endif
+								@endif
 								<a href="{{ route('excel.show', ['id' => $excel->id]) }}" title="Check Revisions" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill"><i class="flaticon-refresh"></i></a>
 							</td>
 						</tr>

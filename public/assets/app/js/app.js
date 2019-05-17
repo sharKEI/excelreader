@@ -68,6 +68,8 @@ function modalMap(obj){
     mapUser.innerHTML = 'Uploaded by: ' + obj.querySelector('#passUser').value;
 }
 
+
+
   $(document).ready(function() {
 
     $(".btn-success").click(function(){
@@ -131,11 +133,73 @@ function modalMap(obj){
       $(this).css("border", "0px solid #8a4419");
     });
 
-
+    $('.checkCalc').change(function(){
+      $(this).parent().parent().parent().next().prop('disabled', function(i, v) { return !v; });;
+    });
   });
 
+  function calcAttComp(e){
+    var id = document.calcForm.rev_id.value;
+    var calc = e.innerHTML;
+    e.innerHTML = '<div class="loader"></div>';
+    $.ajax('/api/revision/calculate/attcomp/'+id)
+    .done((json)=>{
+      console.log(json)
+      $(e).parent().prev().val(JSON.parse(json).result);
+      document.calcForm.cattcomp.checked = true;
+      document.calcForm.attcomp.disabled = false;
+      e.innerHTML = calc;
+      $(document.querySelector('#sattcomp')).fadeIn(function () {
+        $(this).delay(2000).fadeOut();
+      });
+    })
+    .fail((json)=>{
+      $(document.querySelector('#eattcomp')).fadeIn(function () {
+        $(this).delay(2000).fadeOut();
+      });
+      e.innerHTML = calc;
+    })
+  }
 
+function modalCalc(e, obj){
+  var json = JSON.parse(obj)
+  const form = document.calcForm
+  form.rev_id.value = json.id
+  if(json.attcomp == null){
+    form.cattcomp.checked = false
+    form.attcomp.disabled = true
+  }
+  else{
+    form.attcomp.value = json.attcomp
+  }
+  if(json.attacc == null){
+    form.cattacc.checked = false
+    form.attacc.disabled = true
+  }
+  else{
+    form.attacc.value = json.attacc
+  }
+  if(json.spatacc == null){
+    form.cspatacc.checked = false
+    form.spatacc.disabled = true
+  }
+  else{
+    form.spatacc.value = json.spatacc
+  }
+  form.object.innerText = $(e).parent().parent().parent().prev().prev().prev().prev().prev().prev().prev().prev().text()
+  form.place.innerText = $(e).parent().parent().parent().prev().prev().prev().prev().text()
+  form.quarter.innerText = $(e).parent().parent().parent().prev().prev().prev().children().text()
 
+}
+
+var datatable = $('.m-datatable').mDatatable({
+  data: {
+    saveState: {
+      cookie: false,
+      webstorage: false
+    },
+  }
+});
 // function apiExcel(id){
 //     $("#loadExcel").empty();
 //     $("#loadExcel").load("/revision/show/"+id)

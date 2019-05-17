@@ -61,7 +61,7 @@ Contact: fadhil.kamil@tnb.com.my
     <link href="{{ asset('vendors/vendors/flaticon/css/flaticon.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('vendors/vendors/metronic/css/styles.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('vendors/vendors/fontawesome5/css/all.min.css') }}" rel="stylesheet" type="text/css" />
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/datatable/datatables.min.css') }}"/>
     <!--end:: Global Optional Vendors -->
 
     <!--begin::Global Theme Styles -->
@@ -191,7 +191,8 @@ Contact: fadhil.kamil@tnb.com.my
     <!--end::Global Theme Bundle -->
 
     <!--begin::Page Scripts -->
-    <script src="{{ asset('demo/custom/crud/metronic-datatable/base/html-table-insight.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('vendors/datatable/datatables.min.js') }}"></script>
+    <!-- <script src="{{ asset('demo/custom/crud/metronic-datatable/base/html-table-insight.js') }}" type="text/javascript"></script> -->
     <script src="{{ asset('app/js/app.js') }}" type="text/javascript"></script>
     <!--end::Page Scripts -->
 </body>

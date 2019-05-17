@@ -10,7 +10,9 @@
             <h3 class="m-portlet__head-text">
                 Map Collections
                 &nbsp
+                @if(Auth::user()['admin'])
                 <button data-toggle="modal" data-target="#newMapModal" class="btn btn-primary">Add New Map</button>
+                @endif
             </h3>
 
             {{-- Form validation error --}}

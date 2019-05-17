@@ -59,10 +59,10 @@
                 </thead>
                 <tbody>
                     @if ($users)
-                        @foreach ($users as $key => $user)
+                        @foreach ($users as $user)
                             <tr>
                                 <td>
-                                    {{ $key+1 }}
+                                    {{ $count++ }}
                                 </td>
                                 <td>
                                     {{ $user->name }}

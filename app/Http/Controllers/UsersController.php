@@ -21,7 +21,7 @@ class UsersController extends Controller
         $data['subheader'] = ['title' => 'Manage Users', 'desc' => 'View, Add or Edit user(s).'];
 
         $data['users'] = User::all();
-
+        $data['count'] = 1;
         return view('user', $data);
     }
 

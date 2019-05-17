@@ -5,7 +5,7 @@
 
 <div class="m-content">
 	<div class="m-portlet m-portlet--mobile">
-
+    
         <div class="m-portlet__body">
 
             <h3 class="m-portlet__head-text">
@@ -71,10 +71,10 @@
                 </thead>
                 <tbody>
                     @if ($objects)
-                        @foreach ($objects as $key => $object)
+                        @foreach ($objects as $object)
                             <tr>
                                 <td>
-                                    {{ $key+1 }}
+                                    {{ $count++ }}
                                 </td>
                                 <td>
                                     {{ $object['name'] }}

@@ -19,7 +19,8 @@ class ObjectsController extends Controller
         $data['title'] = 'Manage objects';
         $data['subheader'] = ['title' => 'Manage Objects', 'desc' => 'View, Add or Edit Object(s).'];
 
-        $data['objects'] = Objects::all();
+        $data['objects'] = Objects::all()->sortBy('name');
+        $data['count'] = 1;
 
         return view('object', $data);
     }

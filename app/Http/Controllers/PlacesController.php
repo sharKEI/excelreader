@@ -17,7 +17,8 @@ class PlacesController extends Controller
         //Main setting page for places
         $data['title'] = 'Manage Places';
         $data['subheader'] = ['title' => 'Manage Places', 'desc' => 'View, Add or Edit Place(s).'];
-        $data['places'] = Places::all();
+        $data['places'] = Places::all()->sortBy('name');
+        $data['count'] = 1;
         return view('place',$data);
     }
 

@@ -8,7 +8,7 @@ class Revisions extends Model
 {
     //Table Relation
     public function excel(){
-        return $this->belongsTo('App\Excels');
+        return $this->belongsTo('App\Excels', 'excel_id');
     }
 
     public function updated_by(){

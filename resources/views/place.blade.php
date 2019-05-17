@@ -71,10 +71,10 @@
                 </thead>
                 <tbody>
                     @if ($places)
-                        @foreach ($places as $key => $place)
+                        @foreach ($places as $place)
                             <tr>
                                 <td>
-                                    {{ $key+1 }}
+                                    {{ $count++ }}
                                 </td>
                                 <td>
                                     {{ $place['name'] }}
